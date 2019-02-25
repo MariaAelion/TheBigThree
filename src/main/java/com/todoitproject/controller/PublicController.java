@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/private")
+@RequestMapping(value="/public")
 public class PublicController {
 
 }
