@@ -1,8 +1,8 @@
-package persistence.repository;
+package com.todoitproject.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import persistence.entity.ETask;
+import com.todoitproject.persistence.entity.ETask;
 
 public interface TaskRepository extends JpaRepository <ETask, Long>{
 
