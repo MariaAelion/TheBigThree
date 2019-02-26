@@ -28,7 +28,7 @@ public class EUser {
 	private String password;
 	
 	@OneToMany
-	@JoinColumn(name="id_users", referencedColumnName ="id")
+	@JoinColumn(name="id_user", referencedColumnName ="id")
 	private List<ETask> etasks;
 
 	public long getId() {
