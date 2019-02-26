@@ -3,7 +3,7 @@ package com.todoitproject.dto;
 public class DtoCreateUser {
 	
 	private String login;
-	private String password;
+	private String password;	
 	public String getLogin() {
 		return login;
 	}

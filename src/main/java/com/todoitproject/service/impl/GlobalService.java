@@ -7,7 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.todoitproject.dto.DtoCreateProject;
 import com.todoitproject.dto.DtoTask;
+import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.ETask;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
@@ -36,10 +38,7 @@ public class GlobalService implements IGlobalService {
 		eTask.setLabel(dtoTask.getLabel());
 		eTask.setPriorite(dtoTask.getPriorite());
 		
-		taskRepository.save(eTask);
-		
-		
-		
+		taskRepository.save(eTask);		
 		return dtoTask;
 	}
 	
@@ -57,6 +56,25 @@ public class GlobalService implements IGlobalService {
 		}
 		
 
+	}
+	
+	@Override
+	
+	/**
+	 * Création d'un nouveau projet
+	 * @param DtoCreateProject
+	 * 
+	 */
+	public DtoCreateProject addProject(DtoCreateProject dtocreateproject) {
+		EProject project = new EProject();
+		project.setNom(dtocreateproject.getNom());
+		project.setDescription(dtocreateproject.getDescription());
+				
+		 projectRepository.save(project);
+		 System.out.println("le projet " +  project.getId() + " a bien été créé");
+		 
+		 return dtocreateproject;
+		
 	}
 
 }
