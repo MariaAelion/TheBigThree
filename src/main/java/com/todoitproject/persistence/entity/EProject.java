@@ -1,10 +1,15 @@
 package com.todoitproject.persistence.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +27,10 @@ public class EProject {
 	
 	@Column (name="description", length = 20, nullable=false)
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name="id_user", nullable=false)
+	private EUser eUser;
 
 	public long getId() {
 		return id;
@@ -46,7 +55,18 @@ public class EProject {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public EUser geteUser() {
+		return eUser;
+	}
+
+	public void seteUser(EUser eUser) {
+		this.eUser = eUser;
+	}
+
 	
 	
+	
+
 
 }

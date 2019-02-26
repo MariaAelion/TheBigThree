@@ -27,9 +27,7 @@ public class EUser {
 	@Column (name="password", length = 20, nullable=false)
 	private String password;
 	
-	@OneToMany
-	@JoinColumn(name="id_user", referencedColumnName ="id")
-	private List<ETask> etasks;
+	
 
 	public long getId() {
 		return id;
@@ -55,13 +53,9 @@ public class EUser {
 		this.password = password;
 	}
 
-	public List<ETask> getEtasks() {
-		return etasks;
-	}
-
-	public void setEtasks(List<ETask> etasks) {
-		this.etasks = etasks;
-	}
 	
+	
+
+
 	
 }

@@ -1,10 +1,11 @@
 package com.todoitproject.service.impl;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.todoitproject.dto.DtoTask;
 import com.todoitproject.persistence.entity.ETask;
@@ -32,13 +33,30 @@ public class GlobalService implements IGlobalService {
 		eTask.setDateCrea(dtoTask.getDateCrea());
 		eTask.setDateLimite(dtoTask.getDateLimite());
 		eTask.setEtat(dtoTask.isEtat());
-		eTask.seteProject(dtoTask.geteProject());
 		eTask.setLabel(dtoTask.getLabel());
 		eTask.setPriorite(dtoTask.getPriorite());
 		
 		taskRepository.save(eTask);
 		
+		
+		
 		return dtoTask;
+	}
+	
+	
+
+	private EUser getUserByLog(long id) {
+		ETask eTask = new ETask();
+		Optional<EUser> oeUser = userRepository.findUserById(id);
+		
+		if (oeUser.isPresent()) {
+			return oeUser.get();
+			
+		} else {
+			throw new com.todoitproject.exception.NotFoundException ("Cet utilisateur n'existe pas");
+		}
+		
+
 	}
 
 }
