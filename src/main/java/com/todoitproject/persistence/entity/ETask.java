@@ -20,7 +20,7 @@ public class ETask {
 	@Column (name ="id", unique = true, nullable = false)
 	private long id;
 	
-	@Column (name="label", length = 20, nullable=false)
+	@Column (name="label", nullable=false)
 	private String label;
 	
 	@Column(name = "dateCrea", nullable = false)
@@ -36,7 +36,7 @@ public class ETask {
 	private boolean etat;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="id_projet", referencedColumnName="id")
+	@JoinColumn(name="id_projet", referencedColumnName="id", nullable=true)
 	private EProject eProject;
 
 	public long getId() {
