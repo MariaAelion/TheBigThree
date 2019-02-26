@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.todoitproject.persistence.entity.ETask;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
@@ -22,8 +24,10 @@ public class GlobalService implements IGlobalService {
 	
 	
 	
+	
+
 	private EUser getUserByLog(long id) {
-		
+		ETask eTask = new ETask();
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 		
 		if (oeUser.isPresent()) {

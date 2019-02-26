@@ -29,7 +29,7 @@ public class EUser {
 	
 	@OneToMany
 	@JoinColumn(name="id_user", referencedColumnName ="id")
-	private List<ETask> etasks;
+	private List<EProject> eProjects;
 
 	public long getId() {
 		return id;
@@ -55,13 +55,15 @@ public class EUser {
 		this.password = password;
 	}
 
-	public List<ETask> getEtasks() {
-		return etasks;
+	public List<EProject> geteProjects() {
+		return eProjects;
 	}
 
-	public void setEtasks(List<ETask> etasks) {
-		this.etasks = etasks;
+	public void seteProjects(List<EProject> eProjects) {
+		this.eProjects = eProjects;
 	}
 	
+
+
 	
 }
