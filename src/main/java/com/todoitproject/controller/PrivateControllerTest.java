@@ -26,7 +26,9 @@ import com.todoitproject.service.impl.IProjectService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/test")
+
+@RequestMapping(value="/api/test")
+
 public class PrivateControllerTest {
 
 	@Autowired
