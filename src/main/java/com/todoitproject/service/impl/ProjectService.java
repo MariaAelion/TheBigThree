@@ -1,67 +1,34 @@
 package com.todoitproject.service.impl;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.todoitproject.dto.DtoProject;
-import com.todoitproject.dto.DtoRCreateUser;
-
-import com.todoitproject.dto.DtoTask;
 import com.todoitproject.persistence.entity.EProject;
-import com.todoitproject.persistence.entity.ETask;
-import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
-import com.todoitproject.persistence.repository.TaskRepository;
-import com.todoitproject.persistence.repository.UserRepository;
-import com.todoitproject.service.IGlobalService;
+
+
 
 @Service
 @Transactional
-public class GlobalService implements IGlobalService {
 
+public class ProjectService implements IProjectService{
+	
 	@Autowired
 	ProjectRepository projectRepository;
-	@Autowired
-	TaskRepository taskRepository;
-	@Autowired
-	UserRepository userRepository;
-
-	@Override
-	public DtoTask save(DtoTask dtoTask) {
-
-		ETask eTask = new ETask();
-		eTask.setDateCrea(dtoTask.getDateCrea());
-		eTask.setDateLimite(dtoTask.getDateLimite());
-		eTask.setEtat(dtoTask.isEtat());
-		eTask.setLabel(dtoTask.getLabel());
-		eTask.setPriorite(dtoTask.getPriorite());
-
-		taskRepository.save(eTask);
-		return dtoTask;
-	}
-
-	private EUser getUserByLog(long id) {
-
-		Optional<EUser> oeUser = userRepository.findUserById(id);
-
-		if (oeUser.isPresent()) {
-			return oeUser.get();
-
-		} else {
-			throw new com.todoitproject.exception.NotFoundException("Cet utilisateur n'existe pas");
-		}
-	}
-
+	
 	/**
 	 * Création d'un nouveau projet
 	 * 
 	 * @param DtoCreateProject
 	 * @return dtocreateproject
 	 */
+	
+	@Override
 	public DtoProject addProject(DtoProject dtoproject) {
 
 		// EUser eUser = getUserByLog(dtoproject.getId_user()); // recupere id user en
@@ -83,45 +50,63 @@ public class GlobalService implements IGlobalService {
 	
 	// lister mes projets
 	
-	public List<DtoProjet> listProject
+	@Override
+	public List<DtoProject> listProject(long id_user) {
+		List<EProject> projects = projectRepository.findAll();
+		return projects.stream().map(p-> new DtoProject(p));
+				//.filter(predicate)
+			//	.collect(Collector.toList()));
+				
+		
+		
+	/*	return projects.stream()
+				.filter(m->m.getId_user().equals("id_user"))		
+				.collect(Collectors.toList()));*/
+
+		
+	}
+	
+	// Trouver un projet
+	
+	@Override
+	public DtoProject oneProject(long id) {
+		DtoProject proj= new DtoProject();
+		Optional<EProject> optProject= projectRepository.findById(id);
+		
+			if(optProject.isPresent()) {
+				// EProject projet = optProject.get();
+				proj.setNom(optProject.get().getNom());
+				proj.setDescription(optProject.get().getDescription());
+				proj.setId_user(optProject.get().getId());
+				return proj;
+			}else {
+				throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
+			}
+			
+		
+	}
 	
 	
 // supprimer un projet
+	
 	@Override
 	public void deleteProject(long id) {
 		Optional<EProject> oeProject = projectRepository.findById(id);
 
 		if (oeProject.isPresent()) {
+			
 			projectRepository.delete(oeProject.get());
-			;
-
+			
 		} else {
 			throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
 		}
-		return;
+		
 
 	}
 
-	// modifier un projet
-/*	@Override
-public 	DtoProject updateProject(long id_user, DtoProject dtoproject) {
-		 Optional<EProject> optProj = projectRepository.findById(id_user);
-		
 	
-		if (optProj.isPresent()) {
-			EProject projet = optProj.get();
-		projet.setNom(dtoproject.getNom());
-		projet.setDescription(dtoproject.getDescription());
-		
-		
-		projectRepository.save(projet);
-		System.out.println("le projet a bien été modifié");
-
-		return dtoproject;
-	} else {
-		throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
-		
-	}*/
+	
+	// Modifier le nom d'un projet
 
 	@Override
 	public DtoProject updateProjectName(long id_user, DtoProject dtoproject) {
@@ -132,7 +117,7 @@ public 	DtoProject updateProject(long id_user, DtoProject dtoproject) {
 			projet.setNom(dtoproject.getNom());
 
 			projectRepository.save(projet);
-			System.out.println("le projet a bien été modifié");
+		//	System.out.println("le projet a bien été modifié");
 
 			return dtoproject;
 		} else {
@@ -141,7 +126,8 @@ public 	DtoProject updateProject(long id_user, DtoProject dtoproject) {
 		}
 
 	}
-
+// Modifier la description d'un projet
+	
 	@Override
 	public DtoProject updateProjectDescription(long id_user, DtoProject dtoproject) {
 		Optional<EProject> optProj = projectRepository.findById(id_user);
@@ -151,7 +137,7 @@ public 	DtoProject updateProject(long id_user, DtoProject dtoproject) {
 			projet.setDescription(dtoproject.getDescription());
 
 			projectRepository.save(projet);
-			System.out.println("le projet a bien été modifié");
+		//	System.out.println("le projet a bien été modifié");
 
 			return dtoproject;
 		} else {
@@ -160,5 +146,4 @@ public 	DtoProject updateProject(long id_user, DtoProject dtoproject) {
 		}
 
 	}
-
 }
