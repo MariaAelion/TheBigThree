@@ -10,4 +10,6 @@ public interface ILogService {
 	
 	DtoUserLog findUserByLogPass(String login, String password);
 
+	DtoUserLog findOne(long id);
+
 }

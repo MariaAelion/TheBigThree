@@ -62,4 +62,16 @@ public class LogService implements ILogService{
 		}
 	}
 
+	@Override
+	public DtoUserLog findOne(long id) {
+		Optional<EUser> optEUser = userRepository.findById(id);
+		if(optEUser.isPresent()) {
+			DtoUserLog dtoUserLog = new DtoUserLog();
+			dtoUserLog.setId(optEUser.get().getId());
+			return dtoUserLog;
+		} else {
+			throw new com.todoitproject.exception.NotFoundException("L'utilisateur avec l'id" +id  +" n'est pas present dans la base de donnée");
+		}
+	}
+
 }

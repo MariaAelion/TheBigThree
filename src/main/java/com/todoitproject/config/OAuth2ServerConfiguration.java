@@ -55,7 +55,7 @@ public class OAuth2ServerConfiguration {
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			clients.inMemory().withClient("formation").authorizedGrantTypes("password", "refresh_token").authorities("USER").scopes("read", "write").resourceIds(RESOURCE_ID).secret("secret");
+			clients.inMemory().withClient("thebig3").authorizedGrantTypes("password", "refresh_token").authorities("USER").scopes("read", "write").resourceIds(RESOURCE_ID).secret("secret");
 		}
 		
 		@Override
