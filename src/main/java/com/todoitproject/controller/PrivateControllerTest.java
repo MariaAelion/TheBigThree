@@ -15,7 +15,7 @@ import com.todoitproject.service.IGlobalService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/private/test")
+@RequestMapping(value="/test")
 public class PrivateControllerTest {
 	
 	@Autowired IGlobalService iService;
