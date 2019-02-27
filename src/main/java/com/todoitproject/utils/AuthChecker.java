@@ -9,7 +9,7 @@ import com.todoitproject.dto.DtoUserLog;
 @Component
 public class AuthChecker {
 
-	public DtoUserLog isBenevole() {
+	public DtoUserLog isUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		boolean isUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"));
 		if (principal != null && principal instanceof DtoUserLog && isUser) {
