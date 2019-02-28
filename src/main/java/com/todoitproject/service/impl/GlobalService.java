@@ -44,7 +44,15 @@ public class GlobalService implements IGlobalService {
 		return dtoTask;
 	}
 
-	private EUser getUserByLog(long id) {
+	public boolean checkUserByLog(long id) {
+		Optional<EUser> oeUser = userRepository.findUserById(id);
+		if (oeUser.isPresent()) return true;
+		else return false;
+		
+	}
+	
+	
+	public EUser getUserByLog(long id) {
 
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 

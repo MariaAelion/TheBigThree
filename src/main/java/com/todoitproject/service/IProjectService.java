@@ -1,4 +1,4 @@
-package com.todoitproject.service.impl;
+package com.todoitproject.service;
 
 import java.util.List;
 
@@ -17,6 +17,8 @@ public interface IProjectService {
 	List<DtoProject> listProject(long id_user);
 
 	DtoProject oneProject(long id);
+
+	List<DtoProject> listProject();
 
 	
 

@@ -21,7 +21,7 @@ import com.todoitproject.dto.DtoProject;
 import com.todoitproject.dto.DtoTask;
 
 import com.todoitproject.service.IGlobalService;
-import com.todoitproject.service.impl.IProjectService;
+import com.todoitproject.service.IProjectService;
 
 
 @CrossOrigin
@@ -47,6 +47,14 @@ public class PrivateControllerTest {
 	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
 		return pService.addProject(dtoproject);
 	}
+	
+	
+	@GetMapping(value="/MyProjects")
+	@ResponseBody
+	public List<DtoProject> listProject() {
+		return pService.listProject();
+	}
+	
 	
 	
 	@GetMapping(value="/MyProjects/{id_user}")
