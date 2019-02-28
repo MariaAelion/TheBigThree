@@ -1,4 +1,5 @@
 package com.todoitproject.persistence.repository;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +19,10 @@ public interface ProjectRepository extends JpaRepository <EProject, Long>{
 	@Query(value= "SELECT * FROM t_project WHERE nom = ?1 AND id_user = ?2", nativeQuery = true)
 	Optional<EProject> findByNameAndUser(String nom, long id_user);
 	
-
+// chercher list projets par utilisateur
+	
+	@Query(value="SELECT * FROM t_project WHERE id_user = ?1", nativeQuery = true)
+	List<EProject> findByUser(long id_user);
 
 	
 

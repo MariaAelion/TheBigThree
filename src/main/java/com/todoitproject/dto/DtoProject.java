@@ -1,12 +1,24 @@
 package com.todoitproject.dto;
 
-
+import com.todoitproject.persistence.entity.EProject;
 
 public class DtoProject {
 
 	private String nom;
 	private String description;
 	private long id_user;
+	
+	
+	public DtoProject() {
+		super();}
+	
+	public DtoProject(EProject proj) {
+		super();
+		this.setNom(proj.getNom());
+		this.setDescription(proj.getDescription());
+		//this.setId_user(proj.setId_user(optProject.get().getId());
+	//	a voir this.setId_user(proj.geteUser());
+	}
 	/**
 	 * @return the nom
 	 */
