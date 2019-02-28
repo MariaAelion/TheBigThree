@@ -12,7 +12,7 @@ import com.todoitproject.persistence.entity.EUser;
 public interface UserRepository extends JpaRepository <EUser, Long>{
 	
 	@Query(value= "SELECT * FROM t_utilisateur WHERE login = ?1", nativeQuery = true)
-	Optional<EUser> findUserByPassword(String log);
+	Optional<EUser> findUserByLog(String log);
 	
 	@Query(value= "SELECT * FROM t_utilisateur WHERE id = ?1", nativeQuery = true)
 	Optional<EUser> findUserById(long id);
