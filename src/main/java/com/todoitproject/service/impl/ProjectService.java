@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.todoitproject.dto.DtoProject;
+import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
@@ -44,13 +45,13 @@ public class ProjectService implements IProjectService{
 		EProject eProject = new EProject();
 		eProject.setNom(dtoproject.getNom());
 		eProject.setDescription(dtoproject.getDescription());
-			
-		eProject.seteUser(this.getUserByLog(1));
-
-		projectRepository.save(eProject);
-	//	System.out.println("le projet " + project.getId() + " a bien été créé");
-
-		return dtoproject;
+		if(this.checkUserByLog(dtoproject.getId_user())) {
+			eProject.seteUser(this.getUserByLog(dtoproject.getId_user()));
+			projectRepository.save(eProject);
+			return dtoproject;
+		} else {
+			throw new NotFoundException("Cet utilisateur n'existe pas");
+		}
 	}
 
 		
