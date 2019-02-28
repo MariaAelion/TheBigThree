@@ -18,7 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.todoitproject.dto.DtoUserLog;
@@ -41,13 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			@Override
 			public String encode(CharSequence arg0) {
-				System.out.println("le password est" + arg0 );
-				String pw_hash = BCrypt.hashpw(arg0.toString(), BCrypt.gensalt(4));
-				System.out.println("le password cypté est" + pw_hash);
-				return pw_hash;
+				return arg0.toString();
 			}
-			
-		
 		};
 		return encoder;
 	}
