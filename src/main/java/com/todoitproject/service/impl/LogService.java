@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.todoitproject.config.SecurityConfiguration;
 import com.todoitproject.dto.DtoCreateUser;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.dto.DtoUserLog;
@@ -18,6 +20,8 @@ import com.todoitproject.service.ILogService;
 public class LogService implements ILogService{
 	
 	@Autowired UserRepository userRepository;
+	
+	@Autowired SecurityConfiguration securityConfiguration;
 
 	@Override
 	public DtoRCreateUser createUser(DtoCreateUser dtoCreateUser) {
@@ -29,7 +33,7 @@ public class LogService implements ILogService{
 			
 			EUser eUser = new EUser();
 			eUser.setLogin(dtoCreateUser.getLogin());
-			eUser.setPassword(dtoCreateUser.getPassword());
+			eUser.setPassword(securityConfiguration.passwordEncoder().encode(dtoCreateUser.getPassword()).toString());
 			userRepository.save(eUser);
 			dtoRCreateUser.setConfirm(true);
 			
@@ -52,7 +56,7 @@ public class LogService implements ILogService{
 	public DtoUserLog findUserByLogPass(String login, String password) {
 		
 		// TODO Auto-generated method stub
-		Optional<EUser> optEUser = userRepository.findUserByLogPass(login, password);
+		Optional<EUser> optEUser = userRepository.findUserByLogPass(login, securityConfiguration.passwordEncoder().encode(password));
 		if(optEUser.isPresent()) {
 			DtoUserLog dtoUserLog = new DtoUserLog();
 			dtoUserLog.setId(optEUser.get().getId());
