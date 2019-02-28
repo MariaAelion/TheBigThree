@@ -12,24 +12,58 @@ import com.todoitproject.dto.DtoCreateUser;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.dto.DtoUserLog;
 import com.todoitproject.exception.NotFoundException;
+import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
+import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.ILogService;
+import com.todoitproject.service.IProjectService;
 
 @Service
 @Transactional
 public class LogService implements ILogService{
 	
 	@Autowired UserRepository userRepository;
+	
+	@Autowired IProjectService iProjectService;
+	
+	@Autowired ProjectRepository projectRepository;
 
 	@Override
 	public DtoRCreateUser createUser(DtoCreateUser dtoCreateUser) {
 		DtoRCreateUser dtoRCreateUser = new DtoRCreateUser();
+		
+		
 		if (!checkUserByLog(dtoCreateUser.getLogin())) {
 			EUser eUser = new EUser();
 			eUser.setLogin(dtoCreateUser.getLogin());
 			eUser.setPassword(EncodePassTodoIt.passwordEncoder().encode(dtoCreateUser.getPassword()));
 			userRepository.save(eUser);
+			
+			if(this.checkUserByLog(dtoCreateUser.getLogin())) {
+				eUser = this.getUserByLog(dtoCreateUser.getLogin());
+				EProject eProject = new EProject();
+				eProject.setNom("defaut");
+				eProject.setDescription("Hello");
+				eProject.seteUser(eUser);
+				projectRepository.save(eProject);
+				
+				System.out.println("");
+				
+				if(this.checkDefautProjectbyIdUser(eUser.getId())) {
+					eProject = this.getDefautProjectbyIdUser(eUser.getId());
+					eUser.setIdDefautProject(eProject.getId());
+					userRepository.save(eUser);
+				} else {
+					throw new NotFoundException("le projet par defaut de l'utilisateur " + dtoCreateUser.getLogin() +"  a mal ete cree!");
+				}
+
+			} else {
+				throw new NotFoundException("l'utilisateur a mal ete cree!");
+			}
+			
+			
+			
 			dtoRCreateUser.setConfirm(true);
 		} else {
 			dtoRCreateUser.setConfirm(false);
@@ -73,6 +107,16 @@ public class LogService implements ILogService{
 	
 	private EUser getUserByLog(String log) {
 		return userRepository.findUserByLog(log).get();
+	}
+	
+	private boolean checkDefautProjectbyIdUser (long idUser) {
+		if(projectRepository.findByNameAndUser("defaut", idUser).isPresent()) {
+			return true;
+		} else return false;
+	}
+	
+	private EProject getDefautProjectbyIdUser (long idUser) {
+		return projectRepository.findByNameAndUser("defaut", idUser).get();
 	}
 
 }

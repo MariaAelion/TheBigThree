@@ -22,6 +22,9 @@ public class EUser {
 	
 	@Column (name="password", length = 250, nullable=false)
 	private String password;
+	
+	@Column (name ="idDefautProject", unique = true, nullable = true)
+	private long idDefautProject;
 
 	/**
 	 * @return the id
@@ -64,6 +67,15 @@ public class EUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public long getIdDefautProject() {
+		return idDefautProject;
+	}
+
+	public void setIdDefautProject(long idDefautProject) {
+		this.idDefautProject = idDefautProject;
+	}
+	
 	
 	
 	
