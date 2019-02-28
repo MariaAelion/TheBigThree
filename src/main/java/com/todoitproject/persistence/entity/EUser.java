@@ -24,7 +24,7 @@ public class EUser {
 	@Column (name="login", length = 20, nullable=false)
 	private String login;
 	
-	@Column (name="password", length = 20, nullable=false)
+	@Column (name="password", length = 250, nullable=false)
 	private String password;
 	
 	
