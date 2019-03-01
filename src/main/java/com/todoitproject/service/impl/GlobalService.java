@@ -30,8 +30,6 @@ public class GlobalService implements IGlobalService {
 	@Autowired UserRepository userRepository;
 	
 
-		
-
 	public boolean checkUserByLog(long id) {
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 		if (oeUser.isPresent()) return true;

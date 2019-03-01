@@ -131,6 +131,11 @@ public class PrivateControllerTest {
 		iEtaskService.deleteById(id);
 	}
 
+	/**
+	 * 
+	 * @param dtoproject
+	 * @return
+	 */
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -139,20 +144,34 @@ public class PrivateControllerTest {
 		return iPService.addProject(dtoproject);
 	}
 	
-	
+	/**
+	 * 
+	 * @param id_user
+	 * @return
+	 */
 	@GetMapping(value="/MyProjects/{id_user}")
 	@ResponseBody
 	public List<DtoRProject> listProject(@PathVariable long id_user) {
 		return iPService.listProject(id_user);
 	}
 	
-		
+	/**
+	 * 	
+	 * @param id
+	 * @return
+	 */
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
 		return iPService.oneProject(id);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param dtoprojectname
+	 * @return
+	 */
 	@PostMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
@@ -160,6 +179,12 @@ public class PrivateControllerTest {
 		return iPService.updateProjectName( id, dtoprojectname);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param dtoprojectdescription
+	 * @return
+	 */
 	@PostMapping(value = "/modifProjectDescription/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
@@ -168,7 +193,11 @@ public class PrivateControllerTest {
 	}
 
 
-	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(value = "/deleteMyProject/{id}")
 	@ResponseBody
 	public DtoBoolean deleteProject(@PathVariable long id) {
@@ -176,6 +205,11 @@ public class PrivateControllerTest {
 		 
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping(value = "/deleteMyProject2/{id}")
 	@ResponseBody
 	public DtoBoolean deleteProject2(@PathVariable long id) {
