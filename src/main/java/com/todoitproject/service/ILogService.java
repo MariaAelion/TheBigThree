@@ -14,4 +14,8 @@ public interface ILogService {
 
 	DtoUserLog DeleteOne(long id);
 
+	boolean changeMail(long id, String mail);
+
+	boolean changePassword(long id, String password);
+
 }
