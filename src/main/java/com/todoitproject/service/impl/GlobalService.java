@@ -33,6 +33,7 @@ public class GlobalService implements IGlobalService {
 	@Autowired TaskRepository taskRepository;
 	@Autowired UserRepository userRepository;
 	
+
 	public boolean checkUserByLog(long id) {
 
 		Optional<EUser> oeUser = userRepository.findUserById(id);

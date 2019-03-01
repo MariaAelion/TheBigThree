@@ -1,10 +1,14 @@
 package com.todoitproject.persistence.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
 *  @author TheBigThree
@@ -32,6 +36,9 @@ public class EUser {
 	
 	@Column (name="mail", length = 250, nullable=false)
 	private String mail;
+	
+	@OneToMany(mappedBy="eUser", cascade = javax.persistence.CascadeType.ALL)
+	private List<EUser> users = new ArrayList<EUser>();
 
 	/**
 	 * @return the id
