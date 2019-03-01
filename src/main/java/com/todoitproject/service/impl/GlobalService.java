@@ -1,10 +1,6 @@
 package com.todoitproject.service.impl;
 
-/**
-*  @author TheBigThree
-* @version 1.0.0
-*
-*/
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -12,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
@@ -49,7 +45,7 @@ public class GlobalService implements IGlobalService {
 			return oeUser.get();
 
 		} else {
-			throw new com.todoitproject.exception.NotFoundException("Cet utilisateur n'existe pas");
+			throw new NotFoundException("Cet utilisateur n'existe pas");
 		}
 	}
 

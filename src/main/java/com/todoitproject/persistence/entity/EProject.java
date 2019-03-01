@@ -1,16 +1,14 @@
 package com.todoitproject.persistence.entity;
-<<<<<<< HEAD
+
 /**
 *  @author TheBigThree
 * @version 1.0.0
 *
 */
-=======
 
 import java.util.ArrayList;
 import java.util.List;
 
->>>>>>> refs/heads/master
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,18 +19,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-/**
- * 
- * @author TheBigThree
- * @version 1.0.0
- *
- */
-=======
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
->>>>>>> refs/heads/master
+
+
 @Entity
 @Table(name="t_project")
 
