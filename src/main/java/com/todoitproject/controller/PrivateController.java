@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todoitproject.utils.AuthChecker;
+import com.todoitproject.dto.DtoBoolean;
 import com.todoitproject.dto.DtoProject;
 import com.todoitproject.dto.DtoProjectDescription;
 import com.todoitproject.dto.DtoProjectName;
@@ -50,10 +51,7 @@ public class PrivateController {
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
-	//	System.out.println("Salut MAria");
-	//	System.out.println(dtoproject.getId_user());
-	//	System.out.println(dtoproject.getDescription());
-	//	System.out.println(dtoproject.getNom());
+	
 		return iPService.addProject(dtoproject);
 	}
 	
@@ -64,12 +62,7 @@ public class PrivateController {
 		return iPService.listProject(id_user);
 	}
 	
-	/*@GetMapping(value="/MyProjects/")
-	@ResponseBody
-	public List<DtoProject> listProject() {
-		return iPService.listProjectAll();
-	}*/
-	
+		
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
@@ -94,10 +87,22 @@ public class PrivateController {
 	
 	@DeleteMapping(value = "/deleteMyProject/{id}")
 	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteProject(@PathVariable long id) {
-		  iPService.deleteProject(id);
-		  return;	
+	public DtoBoolean deleteProject(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
+	}
+	
+	@GetMapping(value = "/deleteMyProject2/{id}")
+	@ResponseBody
+	public DtoBoolean deleteProject2(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
+	}
+	
+	@DeleteMapping(value = "/delet/{id}")
+	@ResponseBody
+	public DtoBoolean delete(@PathVariable long id) {
+		return iPService.deleteProject(id);
 	}
 
 }

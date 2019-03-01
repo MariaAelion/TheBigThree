@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.todoitproject.dto.DtoBoolean;
 import com.todoitproject.dto.DtoProject;
 import com.todoitproject.dto.DtoProjectDescription;
 import com.todoitproject.dto.DtoProjectName;
@@ -31,11 +31,9 @@ import com.todoitproject.service.IProjectService;
  *@version 1.0.0
  */
 
-@CrossOrigin
+
 @RestController
-
 @RequestMapping(value="/api/test")
-
 public class PrivateControllerTest {
 
 	@Autowired
@@ -91,10 +89,22 @@ public class PrivateControllerTest {
 	
 	@DeleteMapping(value = "/deleteMyProject/{id}")
 	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public boolean deleteProject(@PathVariable long id) {
+	public DtoBoolean deleteProject(@PathVariable long id) {
 		 return iPService.deleteProject(id);
 		 
+	}
+	
+	@GetMapping(value = "/deleteMyProject2/{id}")
+	@ResponseBody
+	public DtoBoolean deleteProject2(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
+	}
+	
+	@DeleteMapping(value = "/delet/{id}")
+	@ResponseBody
+	public DtoBoolean delete(@PathVariable long id) {
+		return iPService.deleteProject(id);
 	}
 
 }
