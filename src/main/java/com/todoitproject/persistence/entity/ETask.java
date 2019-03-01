@@ -39,7 +39,6 @@ public class ETask {
 	@JoinColumn(name="id_projet", nullable=true)
 	private EProject eProject;
 
-
 	public long getId() {
 		return id;
 	}
@@ -96,7 +95,7 @@ public class ETask {
 		this.eProject = eProject;
 	}
 
-	
+
 	
 	
 

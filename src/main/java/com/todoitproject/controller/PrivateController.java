@@ -104,14 +104,14 @@ public class PrivateController {
 		return iPService.oneProject(id);
 	}
 	
-	@PostMapping(value = "/modifProjectNom/{id}")
+	@PutMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	public boolean saveNom(@PathVariable long id , @RequestBody DtoProjectName dtoprojectname) {
 		return iPService.updateProjectName( id, dtoprojectname);
 	}
 	
-	@PostMapping(value = "/modifProjectDescription/{id}")
+	@PutMapping(value = "/modifProjectDescription/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	public boolean saveDesc(@PathVariable long id , @RequestBody  DtoProjectDescription dtoprojectdescription) {
