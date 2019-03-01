@@ -3,7 +3,9 @@ package com.todoitproject.dto;
 public class DtoCreateUser {
 	
 	private String login;
-	private String password;	
+	private String password;
+	private String mail;
+	
 	public String getLogin() {
 		return login;
 	}
@@ -15,6 +17,12 @@ public class DtoCreateUser {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	
 
