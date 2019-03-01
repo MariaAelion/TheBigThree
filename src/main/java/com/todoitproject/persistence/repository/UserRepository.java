@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 
 import com.todoitproject.persistence.entity.EUser;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 
 public interface UserRepository extends JpaRepository <EUser, Long>{
 	

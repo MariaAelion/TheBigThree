@@ -1,6 +1,10 @@
 package com.todoitproject.calcul;
 
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

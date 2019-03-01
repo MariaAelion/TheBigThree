@@ -1,5 +1,9 @@
 package com.todoitproject.dto;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
 

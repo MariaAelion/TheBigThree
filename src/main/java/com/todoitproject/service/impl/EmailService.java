@@ -9,7 +9,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.todoitproject.dto.DtoMail;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 
 @Service
 public class EmailService {

@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.todoitproject.persistence.entity.EProject;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 
 
 public interface ProjectRepository extends JpaRepository <EProject, Long>{

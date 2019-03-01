@@ -8,7 +8,11 @@ import com.todoitproject.dto.DtoProjectDescription;
 import com.todoitproject.dto.DtoProjectName;
 import com.todoitproject.dto.DtoRProject;
 
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 public interface IProjectService {
 
 	DtoProject addProject(DtoProject dtoproject);

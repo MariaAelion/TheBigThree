@@ -21,7 +21,11 @@ import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 @Service
 @Transactional
 
