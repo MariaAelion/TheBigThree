@@ -151,7 +151,7 @@ public class ProjectService implements IProjectService {
 	 * 
 	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans
 	 *        entité
-	 * @return true
+	 * @return true si bien modifié
 	 */
 	@Override
 	public boolean updateProjectName(long id, DtoProjectName dtoProjectname) {
@@ -166,11 +166,12 @@ public class ProjectService implements IProjectService {
 
 			eProj.setNom(dtoProjectname.getNom());
 			projectRepository.save(eProj);
+			return true;
 
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
-		return true;
+		
 	}
 
 	/**
@@ -194,12 +195,13 @@ public class ProjectService implements IProjectService {
 
 			eProj.setDescription(dtoProjectdescription.getDescription());
 			projectRepository.save(eProj);
+			return true;
 
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
 
-		return true;
+	
 	}
 
 	/**
