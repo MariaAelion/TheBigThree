@@ -17,6 +17,7 @@ import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
+import com.todoitproject.persistence.repository.TaskRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.ILogService;
 import com.todoitproject.service.IProjectService;
@@ -30,6 +31,8 @@ public class LogService implements ILogService{
 	@Autowired IProjectService iProjectService;
 	
 	@Autowired ProjectRepository projectRepository;
+	
+	@Autowired TaskRepository taskRepository;
 	
 	@Autowired EmailService emailService;
 
@@ -87,7 +90,7 @@ public class LogService implements ILogService{
 	public DtoUserLog findUserByLogPass(String login, String password) {
 		if(this.checkUserByLog(login)) {
 			EUser eUser = this.getUserByLog(login);
-			System.out.println(EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword()));
+			System.out.println("Correspondance password" + EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword()));
 			if (EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword())) {
 				DtoUserLog dtoUserLog = new DtoUserLog();
 				dtoUserLog.setId(eUser.getId());
@@ -138,6 +141,20 @@ public class LogService implements ILogService{
 			email.setSubject(DtoMailAttributs.CONFIRMATIONSUBJECT);
 			email.setTo(dtoCreateUser.getMail());
 			emailService.sendMail(email);
+	}
+
+	@Override
+	public DtoUserLog DeleteOne(long id) {
+		if(userRepository.findById(id).isPresent()) {
+			userRepository.deleteById(id);
+			System.out.println("DESTRUCTION");
+			
+		} else {
+			throw new NotFoundException("L'utilisateur avec l'id" +id  +" n'est pas present dans la base de donnée");
+		}
+		
+
+		return null;
 	}
 
 }

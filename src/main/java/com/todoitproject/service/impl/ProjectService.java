@@ -167,15 +167,11 @@ public class ProjectService implements IProjectService{
 	
 
 	private boolean checkUserByLog(long id) {
-		System.out.println("L'connard31");
 		Optional<EUser> oeUser = userRepository.findUserById(id);
-		System.out.println("L'connard32");
 		if (oeUser.isPresent()) {
-			System.out.println("L'connard est present");
 			return true;
 		}
 		else {
-			System.out.println("L'connard est pas present");
 			return false;}
 		
 	}
@@ -187,7 +183,7 @@ public class ProjectService implements IProjectService{
 		if (oeUser.isPresent()) {
 			return oeUser.get();
 		} else {
-			throw new com.todoitproject.exception.NotFoundException("Cet utilisateur n'existe pas");
+			throw new NotFoundException("Cet utilisateur n'existe pas");
 		}
 	}
 

@@ -12,4 +12,6 @@ public interface ILogService {
 
 	DtoUserLog findOne(long id);
 
+	DtoUserLog DeleteOne(long id);
+
 }

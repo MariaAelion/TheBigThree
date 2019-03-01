@@ -1,7 +1,6 @@
 package com.todoitproject.persistence.entity;
 
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class EProject {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="id_user", nullable=true)
+	@JoinColumn(name="id_user", nullable=false)
 	private EUser eUser;
 
 	/**
