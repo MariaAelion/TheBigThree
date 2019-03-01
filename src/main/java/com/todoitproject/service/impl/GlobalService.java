@@ -1,5 +1,6 @@
 package com.todoitproject.service.impl;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -19,26 +20,11 @@ import com.todoitproject.service.IGlobalService;
 @Transactional
 public class GlobalService implements IGlobalService {
 
-	@Autowired
-	ProjectRepository projectRepository;
-	@Autowired
-	TaskRepository taskRepository;
-	@Autowired
-	UserRepository userRepository;
-
-	@Override
-	public DtoTask save(DtoTask dtoTask) {
-
-		ETask eTask = new ETask();
-		eTask.setDateCrea(dtoTask.getDateCrea());
-		eTask.setDateLimite(dtoTask.getDateLimite());
-		eTask.setEtat(dtoTask.isEtat());
-		eTask.setLabel(dtoTask.getLabel());
-		eTask.setPriorite(dtoTask.getPriorite());
-
-		taskRepository.save(eTask);
-		return dtoTask;
-	}
+	
+	@Autowired ProjectRepository projectRepository;
+	@Autowired TaskRepository taskRepository;
+	@Autowired UserRepository userRepository;
+	
 
 	public boolean checkUserByLog(long id) {
 		Optional<EUser> oeUser = userRepository.findUserById(id);
@@ -59,6 +45,7 @@ public class GlobalService implements IGlobalService {
 			throw new NotFoundException("Cet utilisateur n'existe pas");
 		}
 	}
+
 
 	
 }
