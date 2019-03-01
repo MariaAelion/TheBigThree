@@ -16,7 +16,7 @@ import com.todoitproject.service.ILogService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/public")
+@RequestMapping(value="/api/public")
 public class PublicController {
 	
 	@Autowired ILogService iLogService;
