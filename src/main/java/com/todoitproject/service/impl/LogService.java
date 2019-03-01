@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.todoitproject.calcul.EncodePassTodoIt;
 import com.todoitproject.dto.DtoCreateUser;
+import com.todoitproject.dto.DtoMail;
+import com.todoitproject.dto.DtoMailAttributs;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.dto.DtoUserLog;
 import com.todoitproject.exception.NotFoundException;
@@ -28,47 +30,57 @@ public class LogService implements ILogService{
 	@Autowired IProjectService iProjectService;
 	
 	@Autowired ProjectRepository projectRepository;
+	
+	@Autowired EmailService emailService;
 
 	@Override
 	public DtoRCreateUser createUser(DtoCreateUser dtoCreateUser) {
-		DtoRCreateUser dtoRCreateUser = new DtoRCreateUser();
-		
-		
-		if (!checkUserByLog(dtoCreateUser.getLogin())) {
-			EUser eUser = new EUser();
-			eUser.setLogin(dtoCreateUser.getLogin());
-			eUser.setPassword(EncodePassTodoIt.passwordEncoder().encode(dtoCreateUser.getPassword()));
-			userRepository.save(eUser);
+		if(EmailService.isValidEmailAddress(dtoCreateUser.getMail())) {
+	
+			DtoRCreateUser dtoRCreateUser = new DtoRCreateUser();
 			
-			if(this.checkUserByLog(dtoCreateUser.getLogin())) {
-				eUser = this.getUserByLog(dtoCreateUser.getLogin());
-				EProject eProject = new EProject();
-				eProject.setNom("defaut");
-				eProject.setDescription("Hello");
-				eProject.seteUser(eUser);
-				projectRepository.save(eProject);
+			if (!checkUserByLog(dtoCreateUser.getLogin())) {
+				EUser eUser = new EUser();
+				eUser.setLogin(dtoCreateUser.getLogin());
+				eUser.setPassword(EncodePassTodoIt.passwordEncoder().encode(dtoCreateUser.getPassword()));
+				eUser.setMail(dtoCreateUser.getMail());
+				userRepository.save(eUser);
 				
-				System.out.println("");
-				
-				if(this.checkDefautProjectbyIdUser(eUser.getId())) {
-					eProject = this.getDefautProjectbyIdUser(eUser.getId());
-					eUser.setIdDefautProject(eProject.getId());
-					userRepository.save(eUser);
-				} else {
-					throw new NotFoundException("le projet par defaut de l'utilisateur " + dtoCreateUser.getLogin() +"  a mal ete cree!");
-				}
+				if(this.checkUserByLog(dtoCreateUser.getLogin())) {
+					eUser = this.getUserByLog(dtoCreateUser.getLogin());
+					EProject eProject = new EProject();
+					eProject.setNom("defaut");
+					eProject.setDescription("Hello");
+					eProject.seteUser(eUser);
+					projectRepository.save(eProject);
+					
+					if(this.checkDefautProjectbyIdUser(eUser.getId())) {
+						eProject = this.getDefautProjectbyIdUser(eUser.getId());
+						eUser.setIdDefautProject(eProject.getId());
+						userRepository.save(eUser);
+					} else {
+						throw new NotFoundException("le projet par defaut de l'utilisateur " + dtoCreateUser.getLogin() +"  a mal ete cree!");
+					}
 
+				} else {
+					throw new NotFoundException("l'utilisateur a mal ete cree!");
+				}
+				
+				
+				
+				dtoRCreateUser.setConfirm(true);
+				this.sendMailUser(dtoCreateUser);
 			} else {
-				throw new NotFoundException("l'utilisateur a mal ete cree!");
+				dtoRCreateUser.setConfirm(false);
 			}
+			return dtoRCreateUser;
 			
-			
-			
-			dtoRCreateUser.setConfirm(true);
 		} else {
-			dtoRCreateUser.setConfirm(false);
+			
+			throw new NotFoundException("le mail " + dtoCreateUser.getMail() + "n'est pas valide");
 		}
-		return dtoRCreateUser;
+		
+
 	}
 
 	@Override
@@ -117,6 +129,15 @@ public class LogService implements ILogService{
 	
 	private EProject getDefautProjectbyIdUser (long idUser) {
 		return projectRepository.findByNameAndUser("defaut", idUser).get();
+	}
+	
+	private void sendMailUser(DtoCreateUser dtoCreateUser) {
+	     DtoMail email = new DtoMail();
+			email.setContent("Nous vous confirmons la creation de votre compte ToDoIT avec pour identifiant " + dtoCreateUser.getLogin() + " et pour password" + dtoCreateUser.getPassword());
+			email.setFrom(DtoMailAttributs.FROM);
+			email.setSubject(DtoMailAttributs.CONFIRMATIONSUBJECT);
+			email.setTo(dtoCreateUser.getMail());
+			emailService.sendMail(email);
 	}
 
 }
