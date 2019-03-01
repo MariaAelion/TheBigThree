@@ -36,7 +36,7 @@ public class ETask {
 	private boolean etat;
 	
 	@ManyToOne
-	@JoinColumn(name="id_projet", nullable=false)
+	@JoinColumn(name="id_projet", nullable=true)
 	private EProject eProject;
 
 
