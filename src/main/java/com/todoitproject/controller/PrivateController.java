@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todoitproject.utils.AuthChecker;
+import com.todoitproject.dto.DtoBoolean;
 import com.todoitproject.dto.DtoProject;
+import com.todoitproject.dto.DtoProjectDescription;
+import com.todoitproject.dto.DtoProjectName;
+import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoUserLog;
 import com.todoitproject.exception.NotIdentifiedException;
 import com.todoitproject.service.IGlobalService;
@@ -32,7 +36,7 @@ public class PrivateController {
 	
 	@Autowired IGlobalService iService;
 	@Autowired ILogService iLogService;
-	@Autowired IProjectService ipService;
+	@Autowired IProjectService iPService;
 	
 	@Autowired
 	private AuthChecker authChecker;
@@ -58,11 +62,58 @@ public class PrivateController {
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
-		return ipService.addProject(dtoproject);
+	
+		return iPService.addProject(dtoproject);
 	}
 	
 	
-	
 
+	@GetMapping(value="/MyProjects/{id_user}")
+	@ResponseBody
+	public List<DtoRProject> listProject(@PathVariable long id_user) {
+		return iPService.listProject(id_user);
+	}
+
+		
+	@GetMapping(value="/OneProject/{id}")
+	@ResponseBody
+	public DtoProject oneProject(@PathVariable long id) {
+		return iPService.oneProject(id);
+	}
+	
+	@PostMapping(value = "/modifProjectNom/{id}")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public boolean saveNom(@PathVariable long id , @RequestBody DtoProjectName dtoprojectname) {
+		return iPService.updateProjectName( id, dtoprojectname);
+	}
+	
+	@PostMapping(value = "/modifProjectDescription/{id}")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public boolean saveDesc(@PathVariable long id , @RequestBody  DtoProjectDescription dtoprojectdescription) {
+		return iPService.updateProjectDescription( id, dtoprojectdescription);
+	}
+
+	
+	@DeleteMapping(value = "/deleteMyProject/{id}")
+	@ResponseBody
+	public DtoBoolean deleteProject(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
+	}
+	
+	@GetMapping(value = "/deleteMyProject2/{id}")
+	@ResponseBody
+	public DtoBoolean deleteProject2(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
+	}
+	
+	@DeleteMapping(value = "/delet/{id}")
+	@ResponseBody
+	public DtoBoolean delete(@PathVariable long id) {
+		return iPService.deleteProject(id);
+	}
 
 }
