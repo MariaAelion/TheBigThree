@@ -13,7 +13,6 @@ public class DtoTask {
 	private int priorite;
 	private boolean etat;
 	private EProject eProject;
-	private EUser id_user;
 	public String getLabel() {
 		return label;
 	}
@@ -49,12 +48,6 @@ public class DtoTask {
 	}
 	public void seteProject(EProject eProject) {
 		this.eProject = eProject;
-	}
-	public EUser getId_user() {
-		return id_user;
-	}
-	public void setId_user(EUser id_user) {
-		this.id_user = id_user;
 	}
 	
 	

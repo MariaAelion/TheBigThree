@@ -1,5 +1,6 @@
 package com.todoitproject.service.impl;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -25,28 +26,9 @@ public class GlobalService implements IGlobalService {
 	
 	
 	
-	
-	@Override
-	public DtoTask save(DtoTask dtoTask) {
-		
-		ETask eTask = new ETask();
-		eTask.setDateCrea(dtoTask.getDateCrea());
-		eTask.setDateLimite(dtoTask.getDateLimite());
-		eTask.setEtat(dtoTask.isEtat());
-		eTask.setLabel(dtoTask.getLabel());
-		eTask.setPriorite(dtoTask.getPriorite());
-		
-		taskRepository.save(eTask);
-		
-		
-		
-		return dtoTask;
-	}
-	
-	
 
 	private EUser getUserByLog(long id) {
-		ETask eTask = new ETask();
+		
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 		
 		if (oeUser.isPresent()) {
@@ -58,5 +40,8 @@ public class GlobalService implements IGlobalService {
 		
 
 	}
+
+
+	
 
 }
