@@ -1,6 +1,7 @@
 package com.todoitproject.service.impl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -15,7 +16,9 @@ import com.todoitproject.dto.ETask.DtoUpdateLabel;
 import com.todoitproject.dto.ETask.DtoUpdateProjet;
 import com.todoitproject.exception.BeforeNowException;
 import com.todoitproject.exception.NotFoundException;
+import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.ETask;
+import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
 import com.todoitproject.service.IEtaskService;
 
@@ -25,6 +28,7 @@ public class EtaskService implements IEtaskService{
 	
 	
 	@Autowired TaskRepository taskRepository;
+	@Autowired ProjectRepository projectRepository;
 	
 	
 		@Override
@@ -53,6 +57,14 @@ public class EtaskService implements IEtaskService{
 				if (dtoTask.geteProject() != null) {
 					eTask.seteProject(dtoTask.geteProject());
 				}
+				
+				if (dtoTask.geteProject() == null) {
+					List<EProject> list = projectRepository.findAll();
+					EProject eProject = list.get(0);
+					eTask.seteProject(eProject);
+					dtoTask.seteProject(eTask.geteProject());
+				} 
+					
 			
 				taskRepository.save(eTask);
 			

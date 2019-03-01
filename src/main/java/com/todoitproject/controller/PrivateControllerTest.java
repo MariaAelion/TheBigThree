@@ -46,8 +46,6 @@ import com.todoitproject.service.IProjectService;
  * @author TheBigThree
  *@version 1.0.0
  */
-
-
 @RestController
 @RequestMapping(value="/api/test")
 public class PrivateControllerTest {
