@@ -30,19 +30,7 @@ public class GlobalService implements IGlobalService {
 	@Autowired
 	UserRepository userRepository;
 
-	@Override
-	public DtoTask save(DtoTask dtoTask) {
-
-		ETask eTask = new ETask();
-		eTask.setDateCrea(dtoTask.getDateCrea());
-		eTask.setDateLimite(dtoTask.getDateLimite());
-		eTask.setEtat(dtoTask.isEtat());
-		eTask.setLabel(dtoTask.getLabel());
-		eTask.setPriorite(dtoTask.getPriorite());
-
-		taskRepository.save(eTask);
-		return dtoTask;
-	}
+	
 
 	public boolean checkUserByLog(long id) {
 		Optional<EUser> oeUser = userRepository.findUserById(id);
@@ -62,6 +50,13 @@ public class GlobalService implements IGlobalService {
 		} else {
 			throw new com.todoitproject.exception.NotFoundException("Cet utilisateur n'existe pas");
 		}
+	}
+
+
+	@Override
+	public DtoTask save(DtoTask dtoTask) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

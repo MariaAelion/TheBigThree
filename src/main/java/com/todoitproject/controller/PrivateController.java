@@ -33,9 +33,12 @@ import com.todoitproject.service.IProjectService;
 @RequestMapping(value="/api/private")
 public class PrivateController {
 	
-	@Autowired IGlobalService iService;
-	@Autowired ILogService iLogService;
-	@Autowired IProjectService iPService;
+	@Autowired 
+	IGlobalService iService;
+	@Autowired 
+	ILogService iLogService;
+	@Autowired 
+	IProjectService iPService;
 	
 	@Autowired
 	private AuthChecker authChecker;
@@ -99,10 +102,5 @@ public class PrivateController {
 		 
 	}
 	
-	@DeleteMapping(value = "/delet/{id}")
-	@ResponseBody
-	public DtoBoolean delete(@PathVariable long id) {
-		return iPService.deleteProject(id);
-	}
-
+	
 }

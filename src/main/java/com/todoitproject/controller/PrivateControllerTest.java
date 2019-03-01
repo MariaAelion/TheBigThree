@@ -101,10 +101,6 @@ public class PrivateControllerTest {
 		 
 	}
 	
-	@DeleteMapping(value = "/delet/{id}")
-	@ResponseBody
-	public DtoBoolean delete(@PathVariable long id) {
-		return iPService.deleteProject(id);
-	}
+	
 
 }
