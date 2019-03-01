@@ -14,7 +14,12 @@ import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
-
+/**
+* 
+* @author TheBigThree
+* @version 1.0.0
+*
+*/
 @Service
 @Transactional
 public class GlobalService implements IGlobalService {
@@ -29,10 +34,8 @@ public class GlobalService implements IGlobalService {
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 		if (oeUser.isPresent()) return true;
 		else return false;
+		}
 		
-	}
-	
-	
 	public EUser getUserByLog(long id) {
 
 		Optional<EUser> oeUser = userRepository.findUserById(id);

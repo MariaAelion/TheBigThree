@@ -28,6 +28,12 @@ import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.ILogService;
 import com.todoitproject.service.IProjectService;
 
+/**
+* 
+* @author TheBigThree
+* @version 1.0.0
+*
+*/
 @CrossOrigin
 @RestController
 @RequestMapping(value="/api/private")

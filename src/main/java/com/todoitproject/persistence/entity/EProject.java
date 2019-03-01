@@ -10,8 +10,14 @@ import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author TheBigThree
+ * @version 1.0.0
+ *
+ */
 @Entity
-@Table(name="t_projet")
+@Table(name="t_project")
 
 public class EProject {
 	
