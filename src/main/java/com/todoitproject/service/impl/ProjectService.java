@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.todoitproject.dto.DtoProject;
+import com.todoitproject.dto.DtoProjectDescription;
+import com.todoitproject.dto.DtoProjectName;
+import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
@@ -18,21 +21,18 @@ import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
 
-
-
 @Service
 @Transactional
 
-public class ProjectService implements IProjectService{
-	
+public class ProjectService implements IProjectService {
+
 	@Autowired
 	ProjectRepository projectRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	IGlobalService iGlobalService;
-	
-	
+
 	/**
 	 * Création d'un nouveau projet
 	 * @param DtoProject
@@ -41,11 +41,11 @@ public class ProjectService implements IProjectService{
 	@Override
 	public DtoProject addProject(DtoProject dtoproject) {
 
-		
 		EProject eProject = new EProject();
 		eProject.setNom(dtoproject.getNom());
 		eProject.setDescription(dtoproject.getDescription());
-		if(this.checkUserByLog(dtoproject.getId_user())) {
+		
+		if (this.checkUserByLog(dtoproject.getId_user())) {
 			eProject.seteUser(this.getUserByLog(dtoproject.getId_user()));
 			projectRepository.save(eProject);
 			return dtoproject;
@@ -54,145 +54,166 @@ public class ProjectService implements IProjectService{
 		}
 	}
 
-		
 	/**
-	 * Lister les projets d'un utilisateur 
-	 * @param 
-	 * @return
+	 * Lister les projets d'un utilisateur
+	 * 
+	 * @param l'id de l'utilisateur
+	 * @return une liste de DtoRProject avec le nom et description des projets
 	 */
-	
+
 	@Override
-	public List<DtoProject> listProject(long id_user) {
-		List<EProject> projets = projectRepository.findByUser(id_user);
-		
-			 return projets.stream()
-					  .map(a -> new DtoProject(a))
-					 .collect(Collectors.toList());
-		}
+	public List<DtoRProject> listProject(long id) {
+		List<EProject> projets = projectRepository.findByUser(id);
+
+		return projets.stream()
+				.map(a -> new DtoRProject(a))
+				.sorted((b1,b2)-> b1.getNom().compareTo(b2.getNom()))					
+				.collect(Collectors.toList());
+
+	}
 	
+	/* choisir la bonne methode A NE PAS UTILISER
+	@Override
+	public List<DtoProject> listProjectAll(long id) {
+		List<EProject> projets = projectRepository.findAll();
+		Optional<EProject> optProject = projectRepository.findById(id);
+		
+		return projets.stream().map(a -> new DtoProject(a))
+				//.filter(b->b.getId_user() == (this.getUserByLog(id))) // probleme pas meme type
+					.filter(b->b.setId_user(().getUserByLog(id)this.getUserByLog().get))							
+				.collect(Collectors.toList());
+		  
+	}*/
+
 	/**
-	 * Trouver un projet 
-	 * @param 
-	 * @return
-	 */	
+	 * Trouver un projet
+	 * 
+	 * @param l'id de l'utilisateur
+	 * @return un projet avec DtoRProject avec son nom et sa description 
+	 */
 	@Override
 	public DtoProject oneProject(long id) {
-		DtoProject proj= new DtoProject();
-		Optional<EProject> optProject= projectRepository.findById(id);
-		
-			if(optProject.isPresent()) {
-		
-				proj.setNom(optProject.get().getNom());
-				proj.setDescription(optProject.get().getDescription());
-				proj.setId_user(optProject.get().getId());
-				return proj;
-			}else {
-				throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
-			}
-			}
-		
+		DtoProject proj = new DtoProject();
+		Optional<EProject> optProject = projectRepository.findById(id);
+
+		if (optProject.isPresent()) {
+
+			proj.setNom(optProject.get().getNom());
+			proj.setDescription(optProject.get().getDescription());
+			proj.setId_user(optProject.get().getId());
+			return proj;
+		} else {
+			throw new NotFoundException("Ce projet n'existe pas");
+		}
+	}
+
 	/**
-	 * Supprimer un projet 
-	 * @param 
-	 * @return
+	 * Supprimer un projet
+	 * @param l'id du projet
+	 * @return true pour confirmer la suppression du projet
 	 */
 	@Override
-	public void deleteProject(long id) {
+	public boolean deleteProject(long id) {
 		Optional<EProject> oeProject = projectRepository.findById(id);
 
 		if (oeProject.isPresent()) {
-			
+
 			projectRepository.delete(oeProject.get());
 			
+
 		} else {
-			throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
+			throw new NotFoundException("Ce projet n'existe pas");
+			
 		}
+		return true;
+	}
+	
+	/**
+	 * Modifier le nom d'un projet
+	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans entité
+	 * @return true
+	 */
+	@Override
+	public boolean updateProjectName(long id, DtoProjectName dtoProjectname) {
+
+		Optional<EProject> optProject = projectRepository.findById(id);
+
+		if (optProject.isPresent()) {
+
+			EProject eProj = new EProject();
+
+			eProj = optProject.get();
+
+			eProj.setNom(dtoProjectname.getNom());
+			projectRepository.save(eProj);
 		
 
+		} else {
+			throw new NotFoundException("Ce projet n'existe pas");
+		}
+		return true;
 	}
 
 	/**
-	 * Modifier le nom d'un projet 
-	 * @param 
-	 * @return
+	 * Modifier la description d'un projet
+	 * 
+	 * @param l'id du projet et le DtoProjectDescription pour remplacer le champ description dans l'entité
+	 * @return true
 	 */
+
 	@Override
-	public DtoProject updateProjectName(long id_user, DtoProject dtoproject) {
-		Optional<EProject> optProj = projectRepository.findById(id_user);
+	public boolean updateProjectDescription(long id, DtoProjectDescription dtoProjectdescription) {
 
-		if (optProj.isPresent()) {
-			EProject projet = optProj.get();
-			projet.setNom(dtoproject.getNom());
+		Optional<EProject> optProject = projectRepository.findById(id);
 
-			projectRepository.save(projet);
+		if (optProject.isPresent()) {
 
-			return dtoproject;
+			EProject eProj = new EProject();
+
+			eProj = optProject.get();
+
+			eProj.setDescription(dtoProjectdescription.getDescription());
+			projectRepository.save(eProj);
+
 		} else {
-			throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
-
+			throw new NotFoundException("Ce projet n'existe pas");
 		}
 
-	}
-	
-	/**
-	 * Modifier la description d'un projet 
-	 * @param 
-	 * @return
-	 */
-	@Override
-	public DtoProject updateProjectDescription(long id_user, DtoProject dtoproject) {
-		Optional<EProject> optProj = projectRepository.findById(id_user);
-
-		if (optProj.isPresent()) {
-			EProject projet = optProj.get();
-			projet.setDescription(dtoproject.getDescription());
-
-			projectRepository.save(projet);
-	
-			return dtoproject;
-		} else {
-			throw new com.todoitproject.exception.NotFoundException("Ce projet n'existe pas");
-
-		}
-
+		return true;
 	}
 
-
-	@Override
-	public List<DtoProject> listProject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+/**
+ *  Vérifie qu'un utilisateur est bien connecté 	
+ * @param id
+ * @return
+ */
 	
-	
-
 	private boolean checkUserByLog(long id) {
-		System.out.println("L'connard31");
-		Optional<EUser> oeUser = userRepository.findUserById(id);
-		System.out.println("L'connard32");
-		if (oeUser.isPresent()) {
-			System.out.println("L'connard est present");
-			return true;
-		}
-		else {
-			System.out.println("L'connard est pas present");
-			return false;}
 		
+		Optional<EUser> oeUser = userRepository.findUserById(id);
+		
+		if (oeUser.isPresent()) {
+		
+			return true;
+		} else {
+			
+			return false;
+		}
 	}
-	
-	
+
+	/**
+	 * Récupère l'id de l'utilisateur connecté
+	 * @param id
+	 * 
+	 */
 	private EUser getUserByLog(long id) {
 
 		Optional<EUser> oeUser = userRepository.findById(id);
 		if (oeUser.isPresent()) {
 			return oeUser.get();
 		} else {
-			throw new com.todoitproject.exception.NotFoundException("Cet utilisateur n'existe pas");
+			throw new NotFoundException("Cet utilisateur n'existe pas");
 		}
 	}
 
-
-
-
-	
 }

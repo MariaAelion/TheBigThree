@@ -3,22 +3,29 @@ package com.todoitproject.service;
 import java.util.List;
 
 import com.todoitproject.dto.DtoProject;
+import com.todoitproject.dto.DtoProjectDescription;
+import com.todoitproject.dto.DtoProjectName;
+import com.todoitproject.dto.DtoRProject;
+
 
 public interface IProjectService {
 
-	void deleteProject(long id);
-
-	DtoProject updateProjectName(long id_user, DtoProject dtoproject);
-
-	DtoProject updateProjectDescription(long id_user, DtoProject dtoproject);
-
 	DtoProject addProject(DtoProject dtoproject);
 
-	List<DtoProject> listProject(long id_user);
+	List<DtoRProject> listProject(long id);
 
 	DtoProject oneProject(long id);
 
-	List<DtoProject> listProject();
+	boolean deleteProject(long id);
+
+	boolean updateProjectName(long id, DtoProjectName dtoProjectname);
+
+	boolean updateProjectDescription(long id, DtoProjectDescription dtoProjectdescription);
+
+	
+
+
+
 
 	
 

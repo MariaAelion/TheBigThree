@@ -17,12 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.todoitproject.dto.DtoProject;
-
+import com.todoitproject.dto.DtoProjectDescription;
+import com.todoitproject.dto.DtoProjectName;
+import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoTask;
 
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
 
+/**
+ * @
+ * @author TheBigThree
+ *@version 1.0.0
+ */
 
 @CrossOrigin
 @RestController
@@ -33,7 +40,10 @@ public class PrivateControllerTest {
 
 	@Autowired
 	IGlobalService iService;
-	IProjectService pService;
+	@Autowired
+	IProjectService iPService;
+	
+	
 
 	@PostMapping(value = "/addTask")
 	@ResponseBody
@@ -45,52 +55,46 @@ public class PrivateControllerTest {
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
-		return pService.addProject(dtoproject);
+	
+		return iPService.addProject(dtoproject);
 	}
-	
-	
-	@GetMapping(value="/MyProjects")
-	@ResponseBody
-	public List<DtoProject> listProject() {
-		return pService.listProject();
-	}
-	
 	
 	
 	@GetMapping(value="/MyProjects/{id_user}")
 	@ResponseBody
-	public List<DtoProject> listProject(@PathVariable long id_user) {
-		return pService.listProject(id_user);
+	public List<DtoRProject> listProject(@PathVariable long id_user) {
+		return iPService.listProject(id_user);
 	}
 	
+		
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
-		return pService.oneProject(id);
+		return iPService.oneProject(id);
 	}
 	
-	@PostMapping(value = "/modifProjectNom")
+	@PostMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public DtoProject saveNom(@RequestBody long id_user, DtoProject dtoproject) {
-		return pService.updateProjectName( id_user, dtoproject);
+	public boolean saveNom(@PathVariable long id , @RequestBody DtoProjectName dtoprojectname) {
+		return iPService.updateProjectName( id, dtoprojectname);
 	}
 	
-	@PostMapping(value = "/modifProjectDescription")
+	@PostMapping(value = "/modifProjectDescription/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public DtoProject saveDesc(@RequestBody long id_user, DtoProject dtoproject) {
-		return pService.updateProjectDescription( id_user, dtoproject);
+	public boolean saveDesc(@PathVariable long id , @RequestBody  DtoProjectDescription dtoprojectdescription) {
+		return iPService.updateProjectDescription( id, dtoprojectdescription);
 	}
 
-	// a corriger??
+
 	
-	@DeleteMapping(value = "/deleteMyProject")
+	@DeleteMapping(value = "/deleteMyProject/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteProject(@RequestBody long id) {
-		  pService.deleteProject(id);
-		  return;	
+	public boolean deleteProject(@PathVariable long id) {
+		 return iPService.deleteProject(id);
+		 
 	}
 
 }
