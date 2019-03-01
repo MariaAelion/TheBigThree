@@ -22,6 +22,7 @@ import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
 /**
+ * @name : pojectService
 *  @author TheBigThree
 * @version 1.0.0
 *
@@ -71,7 +72,8 @@ public class ProjectService implements IProjectService {
 	public List<DtoRProject> listProject(long id) {
 		List<EProject> projets = projectRepository.findByUser(id);
 
-		return projets.stream().map(a -> new DtoRProject(a)).sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
+		return projets.stream().map(a -> new DtoRProject(a))
+				.sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
 				.collect(Collectors.toList());
 
 	}
@@ -149,8 +151,7 @@ public class ProjectService implements IProjectService {
 	/**
 	 * Modifier le nom d'un projet
 	 * 
-	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans
-	 *        entité
+	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans  entité
 	 * @return true si bien modifié
 	 */
 	@Override

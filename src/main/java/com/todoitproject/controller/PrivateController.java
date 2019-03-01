@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +57,12 @@ public class PrivateController {
 		return iLogService.findOne(authChecker.isUser().getId());
 		
 	}
+	
+	/**
+	 * 
+	 * @param dtoproject
+	 * @return dto de l'entité créée
+	 */
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -64,11 +71,15 @@ public class PrivateController {
 		return iPService.addProject(dtoproject);
 	}
 	
-	
-	@GetMapping(value="/MyProjects/{id_user}")
+	/**
+	 * 
+	 * @param id_user
+	 * @return liste des projets pour un utilisateur
+	 */
+	@GetMapping(value="/MyProjects")
 	@ResponseBody
-	public List<DtoRProject> listProject(@PathVariable long id_user) {
-		return iPService.listProject(id_user);
+	public List<DtoRProject> listProject(){
+		return iPService.listProject(authChecker.isUser().getId());
 	}
 	
 		
@@ -78,14 +89,14 @@ public class PrivateController {
 		return iPService.oneProject(id);
 	}
 	
-	@PostMapping(value = "/modifProjectNom/{id}")
+	@PutMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	public boolean saveNom(@PathVariable long id , @RequestBody DtoProjectName dtoprojectname) {
 		return iPService.updateProjectName( id, dtoprojectname);
 	}
 	
-	@PostMapping(value = "/modifProjectDescription/{id}")
+	@PutMapping(value = "/modifProjectDescription/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	public boolean saveDesc(@PathVariable long id , @RequestBody  DtoProjectDescription dtoprojectdescription) {

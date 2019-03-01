@@ -52,5 +52,7 @@ public class GlobalService implements IGlobalService {
 		}
 	}
 
+	
+	
 
 }
