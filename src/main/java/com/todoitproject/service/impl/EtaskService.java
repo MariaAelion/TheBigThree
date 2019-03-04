@@ -23,7 +23,11 @@ import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IEtaskService;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 @Service
 @Transactional
 public class EtaskService implements IEtaskService{

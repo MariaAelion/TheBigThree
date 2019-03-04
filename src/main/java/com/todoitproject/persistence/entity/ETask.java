@@ -10,7 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 @Entity
 @Table(name="t_tache")
 public class ETask {

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.todoitproject.dto.DtoCreateUser;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.service.ILogService;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 @CrossOrigin
 @RestController
 @RequestMapping(value="/api/public")

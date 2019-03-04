@@ -3,7 +3,11 @@ package com.todoitproject.service;
 import com.todoitproject.dto.DtoCreateUser;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.dto.DtoUserLog;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 public interface ILogService {
 
 	DtoRCreateUser createUser(DtoCreateUser dtoCreateUser);

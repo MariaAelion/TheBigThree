@@ -1,5 +1,9 @@
 package com.todoitproject.dto.ETask;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import java.time.LocalDate;
 
 public class DtoUpdateDate {

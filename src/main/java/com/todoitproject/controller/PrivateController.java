@@ -36,15 +36,24 @@ import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.ILogService;
 import com.todoitproject.service.IProjectService;
 
+/**
+* 
+* @author TheBigThree
+* @version 1.0.0
+*
+*/
 @CrossOrigin
 @RestController
 @RequestMapping(value="/api/private")
 public class PrivateController {
 	
+
+
 	@Autowired IGlobalService iService;
 	@Autowired ILogService iLogService;
 	@Autowired IProjectService iPService;
 	@Autowired IEtaskService iEtaskService;
+
 	
 	@Autowired
 	private AuthChecker authChecker;
@@ -56,6 +65,10 @@ public class PrivateController {
 		return iLogService.findOne(authChecker.isUser().getId());
 		
 	}
+
+	
+	
+
 	
 	@DeleteMapping(value = "/me")
 	@ResponseBody
@@ -80,7 +93,7 @@ public class PrivateController {
 		return iLogService.changePassword(authChecker.isUser().getId(), password);
 	}
 	
-	
+
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -93,8 +106,8 @@ public class PrivateController {
 
 	@GetMapping(value="/MyProjects/{id_user}")
 	@ResponseBody
-	public List<DtoRProject> listProject(@PathVariable long id_user) {
-		return iPService.listProject(id_user);
+	public List<DtoRProject> listProject(){
+		return iPService.listProject(authChecker.isUser().getId());
 	}
 
 		
@@ -139,6 +152,7 @@ public class PrivateController {
 		return iPService.deleteProject(id);
 	}
 	
+
 	
 	// Partie tâche
 		/**
@@ -212,5 +226,6 @@ public class PrivateController {
 		public void deleteTask(@PathVariable long id) {
 			iEtaskService.deleteById(id);
 		}
+
 
 }

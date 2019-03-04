@@ -21,7 +21,12 @@ import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
-
+/**
+ * @name : pojectService
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 @Service
 @Transactional
 
@@ -67,7 +72,8 @@ public class ProjectService implements IProjectService {
 	public List<DtoRProject> listProject(long id) {
 		List<EProject> projets = projectRepository.findByUser(id);
 
-		return projets.stream().map(a -> new DtoRProject(a)).sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
+		return projets.stream().map(a -> new DtoRProject(a))
+				.sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
 				.collect(Collectors.toList());
 
 	}
@@ -145,9 +151,8 @@ public class ProjectService implements IProjectService {
 	/**
 	 * Modifier le nom d'un projet
 	 * 
-	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans
-	 *        entité
-	 * @return true
+	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans  entité
+	 * @return true si bien modifié
 	 */
 	@Override
 	public boolean updateProjectName(long id, DtoProjectName dtoProjectname) {
@@ -162,11 +167,12 @@ public class ProjectService implements IProjectService {
 
 			eProj.setNom(dtoProjectname.getNom());
 			projectRepository.save(eProj);
+			return true;
 
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
-		return true;
+		
 	}
 
 	/**
@@ -190,12 +196,13 @@ public class ProjectService implements IProjectService {
 
 			eProj.setDescription(dtoProjectdescription.getDescription());
 			projectRepository.save(eProj);
+			return true;
 
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
 
-		return true;
+	
 	}
 
 	/**

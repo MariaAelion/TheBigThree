@@ -1,5 +1,9 @@
 package com.todoitproject.exception;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

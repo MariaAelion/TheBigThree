@@ -1,5 +1,14 @@
 package com.todoitproject.persistence.entity;
 
+
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +22,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+
+
 
 @Entity
-@Table(name="t_projet")
+@Table(name="t_project")
 
 public class EProject {
 	

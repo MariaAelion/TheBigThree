@@ -10,7 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 
 @Entity
 @Table(name="t_utilisateur")

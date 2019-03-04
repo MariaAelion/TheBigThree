@@ -11,8 +11,16 @@ import org.springframework.stereotype.Service;
 
 import com.todoitproject.dto.DtoCreateUser;
 import com.todoitproject.dto.DtoMail;
+
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
+
 import com.todoitproject.dto.DtoMailAttributs;
 import com.todoitproject.service.IEmailService;
+
 
 
 @Service

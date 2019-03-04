@@ -1,5 +1,9 @@
 package com.todoitproject.dto;
-
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import java.time.LocalDate;
 
 import com.todoitproject.persistence.entity.EProject;

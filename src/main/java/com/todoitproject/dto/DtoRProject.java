@@ -1,9 +1,15 @@
 package com.todoitproject.dto;
 
+/**
+*  @author TheBigThree
+* @version 1.0.0
+*
+*/
 import com.todoitproject.persistence.entity.EProject;
 
 public class DtoRProject {
 
+	private long id;
 	private String nom;
 	private String description;
 
@@ -12,11 +18,26 @@ public class DtoRProject {
 	}
 
 	public DtoRProject(EProject proj) {
-			super();
-			this.setNom(proj.getNom());
-			this.setDescription(proj.getDescription());
-					
-}
+		super();
+		this.setId(proj.getId());
+		this.setNom(proj.getNom());
+		this.setDescription(proj.getDescription());
+
+	}
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the nom
