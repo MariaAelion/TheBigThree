@@ -1,6 +1,7 @@
 package com.todoitproject.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoTask;
+import com.todoitproject.dto.ETask.DtoRTasks;
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
@@ -177,6 +180,74 @@ public class EtaskService implements IEtaskService{
 		public void deleteById(long id) {
 			
 			taskRepository.deleteById(id);
+			
+		}
+
+
+		@Override
+		public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
+			//Parcours de la liste DTOrProject pour trouver les id
+			List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
+		
+			for (DtoRProject dtoRProject : list) {
+				Long idLong = dtoRProject.getId();
+				Optional<ETask> opt = taskRepository.findByIdProject(idLong);
+				
+				if (opt.isPresent()) {
+						
+				ETask eTask = new ETask();
+				
+				eTask = opt.get();
+				
+				DtoRTasks dtoRTasks = new DtoRTasks();
+				
+				dtoRTasks.setDateCrea(eTask.getDateCrea());
+				dtoRTasks.setDateLimite(eTask.getDateLimite());
+				dtoRTasks.setEtat(eTask.isEtat());
+				dtoRTasks.setId_projet(eTask.geteProject().getId());
+				dtoRTasks.setLabel(eTask.getLabel());
+				dtoRTasks.setPriorite(eTask.getPriorite());
+				
+				tasks.add(dtoRTasks);
+					
+				}
+				
+			}
+			
+			return tasks;
+		}
+
+
+		@Override
+		public List<DtoRTasks> getAllTasksForADay(List<DtoRProject> list, LocalDate localDate) {
+			List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
+			
+			for (DtoRProject dtoRProject : list) {
+				Long idLong = dtoRProject.getId();
+				Optional<ETask> opt = taskRepository.findByIdAndDate(idLong, localDate);
+				
+				if (opt.isPresent()) {
+						
+				ETask eTask = new ETask();
+				
+				eTask = opt.get();
+				
+				DtoRTasks dtoRTasks = new DtoRTasks();
+				
+				dtoRTasks.setDateCrea(eTask.getDateCrea());
+				dtoRTasks.setDateLimite(eTask.getDateLimite());
+				dtoRTasks.setEtat(eTask.isEtat());
+				dtoRTasks.setId_projet(eTask.geteProject().getId());
+				dtoRTasks.setLabel(eTask.getLabel());
+				dtoRTasks.setPriorite(eTask.getPriorite());
+				
+				tasks.add(dtoRTasks);
+					
+				}
+				
+			}
+			
+			return tasks;
 			
 		}
 

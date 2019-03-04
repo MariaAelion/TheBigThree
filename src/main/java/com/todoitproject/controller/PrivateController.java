@@ -2,6 +2,7 @@ package com.todoitproject.controller;
 
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,23 @@ import com.todoitproject.dto.DtoProjectDescription;
 import com.todoitproject.dto.DtoProjectName;
 import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoTask;
+
 import com.todoitproject.dto.DtoUserLog;
 import com.todoitproject.exception.NotIdentifiedException;
+
+import com.todoitproject.dto.DtoUserLog;
+import com.todoitproject.dto.ETask.DtoRTasks;
+
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
 import com.todoitproject.dto.ETask.DtoUpdateProjet;
+
 import com.todoitproject.service.IEtaskService;
+
+import com.todoitproject.persistence.entity.ETask;
+import com.todoitproject.service.IEtaskService;
+
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.ILogService;
 import com.todoitproject.service.IProjectService;
@@ -104,9 +115,11 @@ public class PrivateController {
 	
 	
 
-	@GetMapping(value="/MyProjects/{id_user}")
+
+
+	@GetMapping(value="/MyProjects")
 	@ResponseBody
-	public List<DtoRProject> listProject(){
+	public List<DtoRProject> listProject() {
 		return iPService.listProject(authChecker.isUser().getId());
 	}
 
@@ -212,10 +225,25 @@ public class PrivateController {
 		 */
 		@PostMapping(value="/updateProjetTask/{id}")
 		@ResponseBody
-		public boolean updateLabel(@PathVariable long id, @RequestBody DtoUpdateProjet dtoUpdateProjet) {
+		public boolean updateProject(@PathVariable long id, @RequestBody DtoUpdateProjet dtoUpdateProjet) {
 			return iEtaskService.updateProjet(id, dtoUpdateProjet);
 		}
 		
+		@GetMapping(value="/getAllTasks")
+		@ResponseBody
+		public List<DtoRTasks> getAllTasks() {
+			List<DtoRProject> list = iPService.listProject(authChecker.isUser().getId());
+			return iEtaskService.getAllTasks(list);
+		}
+		
+		@GetMapping(value="/getAllTasksForADay/{dateLimite}")
+		@ResponseBody
+		public List<DtoRTasks> getAllTasksForADay(@PathVariable LocalDate dateLimite) {
+			
+			List<DtoRProject> list = iPService.listProject(authChecker.isUser().getId());
+			
+			return iEtaskService.getAllTasksForADay(list, dateLimite);
+		}
 		
 		/**
 		 * 

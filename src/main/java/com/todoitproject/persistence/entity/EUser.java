@@ -3,6 +3,7 @@ package com.todoitproject.persistence.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,8 +38,13 @@ public class EUser {
 	@Column (name="mail", length = 250, nullable=false)
 	private String mail;
 	
+
 	@OneToMany(mappedBy="eUser", cascade = javax.persistence.CascadeType.ALL)
 	private List<EProject> eProjects = new ArrayList<EProject>();
+
+	@OneToMany(mappedBy="eUser", cascade = CascadeType.ALL)
+	private List<EProject> projects = new ArrayList<EProject>();
+
 
 	public long getId() {
 		return id;

@@ -1,27 +1,15 @@
-package com.todoitproject.dto;
-/**
-*  @author TheBigThree
-* @version 1.0.0
-*
-*/
+package com.todoitproject.dto.ETask;
+
 import java.time.LocalDate;
 
+public class DtoRTasks {
 
-
-
-public class DtoTask {
-	
 	private String label;
 	private LocalDate dateCrea;
 	private LocalDate dateLimite;
 	private int priorite;
 	private boolean etat;
-
-	private long idProject;
-
-	
-	
-
+	private long id_projet;
 	public String getLabel() {
 		return label;
 	}
@@ -52,15 +40,13 @@ public class DtoTask {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public long getIdProject() {
-		return idProject;
+	public long getId_projet() {
+		return id_projet;
 	}
-	public void setIdProject(long idProject) {
-		this.idProject = idProject;
+	public void setId_projet(long id_projet) {
+		this.id_projet = id_projet;
 	}
 	
 	
 	
-	
-
 }

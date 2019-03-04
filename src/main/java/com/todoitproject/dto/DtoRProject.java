@@ -9,7 +9,11 @@ import com.todoitproject.persistence.entity.EProject;
 
 public class DtoRProject {
 
+
 	private long id;
+
+
+
 	private String nom;
 	private String description;
 
@@ -18,6 +22,7 @@ public class DtoRProject {
 	}
 
 	public DtoRProject(EProject proj) {
+
 		super();
 		this.setId(proj.getId());
 		this.setNom(proj.getNom());
@@ -38,6 +43,11 @@ public class DtoRProject {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+			
+					
+
+
 
 	/**
 	 * @return the nom
@@ -66,5 +76,13 @@ public class DtoRProject {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 
 }
