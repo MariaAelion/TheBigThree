@@ -205,17 +205,7 @@ public class PrivateControllerTest {
 		 
 	}
 	
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@GetMapping(value = "/deleteMyProject2/{id}")
-	@ResponseBody
-	public DtoBoolean deleteProject2(@PathVariable long id) {
-		 return iPService.deleteProject(id);
-		 
-	}
+	
 	
 
 }

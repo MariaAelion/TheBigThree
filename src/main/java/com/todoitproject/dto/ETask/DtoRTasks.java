@@ -1,19 +1,15 @@
-package com.todoitproject.dto;
+package com.todoitproject.dto.ETask;
 
 import java.time.LocalDate;
 
-import com.todoitproject.persistence.entity.EProject;
-import com.todoitproject.persistence.entity.EUser;
+public class DtoRTasks {
 
-public class DtoTask {
-	
 	private String label;
 	private LocalDate dateCrea;
 	private LocalDate dateLimite;
 	private int priorite;
 	private boolean etat;
-	private EProject eProject;
-	
+	private long id_projet;
 	public String getLabel() {
 		return label;
 	}
@@ -44,13 +40,13 @@ public class DtoTask {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public EProject geteProject() {
-		return eProject;
+	public long getId_projet() {
+		return id_projet;
 	}
-	public void seteProject(EProject eProject) {
-		this.eProject = eProject;
+	public void setId_projet(long id_projet) {
+		this.id_projet = id_projet;
 	}
 	
 	
-
+	
 }

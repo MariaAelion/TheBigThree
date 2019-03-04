@@ -4,6 +4,7 @@ import com.todoitproject.persistence.entity.EProject;
 
 public class DtoRProject {
 
+	private Long id;
 	private String nom;
 	private String description;
 
@@ -15,6 +16,7 @@ public class DtoRProject {
 			super();
 			this.setNom(proj.getNom());
 			this.setDescription(proj.getDescription());
+			this.setId(proj.getId());
 					
 }
 
@@ -45,5 +47,15 @@ public class DtoRProject {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 
 }
