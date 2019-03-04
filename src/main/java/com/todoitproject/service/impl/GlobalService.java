@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.todoitproject.exception.NotFoundException;
+
+import com.todoitproject.dto.DtoTask;
+import com.todoitproject.exception.NotFoundException;
+import com.todoitproject.persistence.entity.ETask;
+
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;

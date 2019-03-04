@@ -52,12 +52,8 @@ public class PrivateControllerTest {
 
 	
 	@Autowired IEtaskService iEtaskService;
-
-
-	@Autowired
-	IGlobalService iService;
-	@Autowired
-	IProjectService iPService;
+	@Autowired IGlobalService iService;
+	@Autowired IProjectService iPService;
 
 	// Partie tâche
 	/**

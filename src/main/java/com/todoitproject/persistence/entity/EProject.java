@@ -1,10 +1,13 @@
 package com.todoitproject.persistence.entity;
 
+
 /**
 *  @author TheBigThree
 * @version 1.0.0
 *
 */
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,69 +42,53 @@ public class EProject {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="id_user", nullable=true)
+	@JoinColumn(name="id_user", nullable=false)
 	private EUser eUser;
 	
 	@OneToMany(mappedBy="eProject", cascade = javax.persistence.CascadeType.ALL)
 	private List<ETask> taches = new ArrayList<ETask>();
 
-	/**
-	 * @return the id
-	 */
 	public long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description the description to set
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @return the eUser
-	 */
 	public EUser geteUser() {
 		return eUser;
 	}
 
-	/**
-	 * @param eUser the eUser to set
-	 */
 	public void seteUser(EUser eUser) {
 		this.eUser = eUser;
 	}
-	
-	
+
+	public List<ETask> getTaches() {
+		return taches;
+	}
+
+	public void setTaches(List<ETask> taches) {
+		this.taches = taches;
+	}
+
+
 	
 
 

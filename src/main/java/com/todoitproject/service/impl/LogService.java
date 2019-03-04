@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.todoitproject.calcul.EncodePassTodoIt;
 import com.todoitproject.dto.DtoCreateUser;
-import com.todoitproject.dto.DtoMail;
-import com.todoitproject.dto.DtoMailAttributs;
 import com.todoitproject.dto.DtoRCreateUser;
 import com.todoitproject.dto.DtoUserLog;
 import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
+import com.todoitproject.persistence.repository.TaskRepository;
 import com.todoitproject.persistence.repository.UserRepository;
+import com.todoitproject.service.IEmailService;
 import com.todoitproject.service.ILogService;
 import com.todoitproject.service.IProjectService;
 /**
@@ -35,11 +35,14 @@ public class LogService implements ILogService{
 	
 	@Autowired ProjectRepository projectRepository;
 	
-	@Autowired EmailService emailService;
+	@Autowired TaskRepository taskRepository;
+	
+	@Autowired IEmailService iEmailService;
+
 
 	@Override
 	public DtoRCreateUser createUser(DtoCreateUser dtoCreateUser) {
-		if(EmailService.isValidEmailAddress(dtoCreateUser.getMail())) {
+		if(iEmailService.isValidEmailAddress(dtoCreateUser.getMail())) {
 	
 			DtoRCreateUser dtoRCreateUser = new DtoRCreateUser();
 			
@@ -69,29 +72,23 @@ public class LogService implements ILogService{
 				} else {
 					throw new NotFoundException("l'utilisateur a mal ete cree!");
 				}
-				
-				
-				
 				dtoRCreateUser.setConfirm(true);
-				this.sendMailUser(dtoCreateUser);
+				iEmailService.sendMailCreateUser(dtoCreateUser);
 			} else {
 				dtoRCreateUser.setConfirm(false);
 			}
 			return dtoRCreateUser;
 			
-		} else {
-			
+		} else {	
 			throw new NotFoundException("le mail " + dtoCreateUser.getMail() + "n'est pas valide");
 		}
-		
-
 	}
 
 	@Override
 	public DtoUserLog findUserByLogPass(String login, String password) {
 		if(this.checkUserByLog(login)) {
 			EUser eUser = this.getUserByLog(login);
-			System.out.println(EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword()));
+			System.out.println("Correspondance password" + EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword()));
 			if (EncodePassTodoIt.passwordEncoder().matches(password, eUser.getPassword())) {
 				DtoUserLog dtoUserLog = new DtoUserLog();
 				dtoUserLog.setId(eUser.getId());
@@ -116,6 +113,55 @@ public class LogService implements ILogService{
 		}
 	}
 	
+	@Override
+	public DtoUserLog DeleteOne(long id) {
+		if(userRepository.findById(id).isPresent()) {
+			userRepository.deleteById(id);
+			System.out.println("DESTRUCTION");
+			
+		} else {
+			throw new NotFoundException("L'utilisateur avec l'id" +id  +" n'est pas present dans la base de donnée");
+		}
+		return null;
+	}
+
+	@Override
+	public boolean changeMail(long id, String mail) {
+		if(iEmailService.isValidEmailAddress(mail)) {
+		 Optional<EUser> oEUser= userRepository.findById(id);
+		 if (oEUser.isPresent()) {
+			 EUser eUser = new EUser();
+			 eUser = oEUser.get();
+			 eUser.setMail(mail);
+			 iEmailService.sendMailModifMail(eUser.getLogin(), mail);
+			 userRepository.save(eUser);
+			
+		 } else {
+			 throw new NotFoundException("L'utilisateur avec l'id" +id  +" n'est pas present dans la base de donnée");
+		 }
+		return true;	
+		} else {
+		return false;
+		}
+	}
+
+	@Override
+	public boolean changePassword(long id, String password) {
+		Optional<EUser> oEUser= userRepository.findById(id);
+		 if (oEUser.isPresent()) {
+			 EUser eUser = new EUser();
+			 eUser = oEUser.get();
+			 eUser.setPassword(EncodePassTodoIt.passwordEncoder().encode(password));
+			 userRepository.save(eUser);
+			 iEmailService.sendMailModifPassword(eUser.getLogin(), eUser.getPassword(), eUser.getMail()); 
+			 return true;
+		 } else {
+			 throw new NotFoundException("L'utilisateur avec l'id" +id  +" n'est pas present dans la base de donnée");
+		 }
+	}
+	
+	/// Acces repository
+	
 	private boolean checkUserByLog(String log) {
 		if (userRepository.findUserByLog(log).isPresent())
 		{return true;} else {return false;}
@@ -133,15 +179,7 @@ public class LogService implements ILogService{
 	
 	private EProject getDefautProjectbyIdUser (long idUser) {
 		return projectRepository.findByNameAndUser("defaut", idUser).get();
-	}
+	}	
 	
-	private void sendMailUser(DtoCreateUser dtoCreateUser) {
-	     DtoMail email = new DtoMail();
-			email.setContent("Nous vous confirmons la creation de votre compte ToDoIT avec pour identifiant " + dtoCreateUser.getLogin() + " et pour password" + dtoCreateUser.getPassword());
-			email.setFrom(DtoMailAttributs.FROM);
-			email.setSubject(DtoMailAttributs.CONFIRMATIONSUBJECT);
-			email.setTo(dtoCreateUser.getMail());
-			emailService.sendMail(email);
-	}
 
 }

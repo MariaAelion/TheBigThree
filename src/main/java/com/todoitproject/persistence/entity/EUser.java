@@ -38,46 +38,28 @@ public class EUser {
 	private String mail;
 	
 	@OneToMany(mappedBy="eUser", cascade = javax.persistence.CascadeType.ALL)
-	private List<EUser> users = new ArrayList<EUser>();
+	private List<EProject> eProjects = new ArrayList<EProject>();
 
-	/**
-	 * @return the id
-	 */
 	public long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the login
-	 */
 	public String getLogin() {
 		return login;
 	}
 
-	/**
-	 * @param login the login to set
-	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
-	/**
-	 * @return the password
-	 */
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * @param password the password to set
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -97,7 +79,15 @@ public class EUser {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
+
+	public List<EProject> geteProjects() {
+		return eProjects;
+	}
+
+	public void seteProjects(List<EProject> eProjects) {
+		this.eProjects = eProjects;
+	}
+
 	
 	
 	

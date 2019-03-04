@@ -26,6 +26,7 @@ import com.todoitproject.dto.DtoProjectName;
 import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoTask;
 import com.todoitproject.dto.DtoUserLog;
+import com.todoitproject.exception.NotIdentifiedException;
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
@@ -60,16 +61,39 @@ public class PrivateController {
 	@GetMapping(value = "/me")
 	@ResponseBody
 	public DtoUserLog findOneMe() {
-		if (authChecker.isUser() == null) throw new com.todoitproject.exception.NotIdentifiedException();
+		if (authChecker.isUser() == null) throw new NotIdentifiedException();
 		return iLogService.findOne(authChecker.isUser().getId());
 		
 	}
+
 	
-	/**
-	 * 
-	 * @param dtoproject
-	 * @return dto de l'entité créée
-	 */
+	
+
+	
+	@DeleteMapping(value = "/me")
+	@ResponseBody
+	public DtoUserLog DeleteMe() {
+		// TODO cascade des projets et taches.
+		if (authChecker.isUser() == null) throw new NotIdentifiedException();
+		return iLogService.DeleteOne(authChecker.isUser().getId());
+		
+	}
+	
+	@PutMapping(value = "/me/mail/{mail}")
+	@ResponseBody
+	public boolean changeMail(@PathVariable String mail) {
+		if (authChecker.isUser() == null) throw new NotIdentifiedException();
+		return iLogService.changeMail(authChecker.isUser().getId(), mail);
+	}
+	
+	@PutMapping(value = "/me/password/{password}")
+	@ResponseBody
+	public boolean changePassword(@PathVariable String password) {
+		if (authChecker.isUser() == null) throw new NotIdentifiedException();
+		return iLogService.changePassword(authChecker.isUser().getId(), password);
+	}
+	
+
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -78,17 +102,14 @@ public class PrivateController {
 		return iPService.addProject(dtoproject);
 	}
 	
-	/**
-	 * 
-	 * @param id_user
-	 * @return liste des projets pour un utilisateur
-	 */
-	@GetMapping(value="/MyProjects")
+	
+
+	@GetMapping(value="/MyProjects/{id_user}")
 	@ResponseBody
 	public List<DtoRProject> listProject(){
 		return iPService.listProject(authChecker.isUser().getId());
 	}
-	
+
 		
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
@@ -110,7 +131,6 @@ public class PrivateController {
 		return iPService.updateProjectDescription( id, dtoprojectdescription);
 	}
 
-
 	
 	@DeleteMapping(value = "/deleteMyProject/{id}")
 	@ResponseBody
@@ -126,6 +146,11 @@ public class PrivateController {
 		 
 	}
 	
+	@DeleteMapping(value = "/delet/{id}")
+	@ResponseBody
+	public DtoBoolean delete(@PathVariable long id) {
+		return iPService.deleteProject(id);
+	}
 	
 
 	
@@ -197,7 +222,7 @@ public class PrivateController {
 		 */
 		@DeleteMapping(value = "deleteTask/{id}")
 		@ResponseStatus(code=HttpStatus.OK)
-		public void delete(@PathVariable long id) {
+		public void deleteTask(@PathVariable long id) {
 			iEtaskService.deleteById(id);
 		}
 

@@ -217,7 +217,6 @@ public class ProjectService implements IProjectService {
 		Optional<EUser> oeUser = userRepository.findUserById(id);
 
 		if (oeUser.isPresent()) {
-
 			return true;
 		} else {
 

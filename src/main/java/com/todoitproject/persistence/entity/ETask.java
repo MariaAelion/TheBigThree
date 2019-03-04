@@ -1,7 +1,7 @@
 package com.todoitproject.persistence.entity;
 import java.time.LocalDate;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +42,6 @@ public class ETask {
 	@ManyToOne
 	@JoinColumn(name="id_projet", nullable=true)
 	private EProject eProject;
-
 
 	public long getId() {
 		return id;
@@ -100,7 +99,7 @@ public class ETask {
 		this.eProject = eProject;
 	}
 
-	
+
 	
 	
 
