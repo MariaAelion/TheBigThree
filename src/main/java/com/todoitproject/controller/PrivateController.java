@@ -149,7 +149,8 @@ public class PrivateController {
 		@PostMapping(value = "/addTask")
 		@ResponseBody
 		public DtoTask save(@RequestBody DtoTask dtoTask) {
-			return iEtaskService.save(dtoTask);
+			if (authChecker.isUser() == null) throw new NotIdentifiedException();
+			return iEtaskService.save(authChecker.isUser().getId(),dtoTask);
 		}
 
 		/**

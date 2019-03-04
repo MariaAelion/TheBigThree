@@ -12,7 +12,7 @@ public class DtoTask {
 	private LocalDate dateLimite;
 	private int priorite;
 	private boolean etat;
-	private EProject eProject;
+	private long idProject;
 	public String getLabel() {
 		return label;
 	}
@@ -43,12 +43,14 @@ public class DtoTask {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public EProject geteProject() {
-		return eProject;
+	public long getIdProject() {
+		return idProject;
 	}
-	public void seteProject(EProject eProject) {
-		this.eProject = eProject;
+	public void setIdProject(long idProject) {
+		this.idProject = idProject;
 	}
+	
+	
 	
 	
 

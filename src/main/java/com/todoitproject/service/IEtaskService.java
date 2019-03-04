@@ -11,7 +11,7 @@ import com.todoitproject.exception.BeforeNowException;
 
 public interface IEtaskService {
 	
-	DtoTask save(DtoTask dtoTask);
+	DtoTask save(long idUser, DtoTask dtoTask);
 	
 	boolean updateDate(long id, DtoUpdateDate dtoUpdateDate);
 	

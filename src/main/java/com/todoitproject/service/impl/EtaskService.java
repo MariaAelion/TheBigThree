@@ -18,8 +18,10 @@ import com.todoitproject.exception.BeforeNowException;
 import com.todoitproject.exception.NotFoundException;
 import com.todoitproject.persistence.entity.EProject;
 import com.todoitproject.persistence.entity.ETask;
+import com.todoitproject.persistence.entity.EUser;
 import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.TaskRepository;
+import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IEtaskService;
 
 @Service
@@ -29,51 +31,48 @@ public class EtaskService implements IEtaskService{
 	
 	@Autowired TaskRepository taskRepository;
 	@Autowired ProjectRepository projectRepository;
+	@Autowired UserRepository userRepository;
 	
 	
 		@Override
-		public DtoTask save(DtoTask dtoTask) {
-			
-			
+		public DtoTask save(long idUser, DtoTask dtoTask) {
 			
 			ETask eTask = new ETask();
+			
 			
 			if (dtoTask.getDateLimite().isAfter(LocalDate.now())) {
 				
 				eTask.setDateLimite(dtoTask.getDateLimite());
-			
-			
-			
 				eTask.setDateCrea(LocalDate.now());
-			
 				dtoTask.setDateCrea(eTask.getDateCrea());
-		
 				eTask.setEtat(false);
-				
 				eTask.setLabel(dtoTask.getLabel());
-				
 				eTask.setPriorite(dtoTask.getPriorite());
-			
-				if (dtoTask.geteProject() != null) {
-					eTask.seteProject(dtoTask.geteProject());
+				
+				if (dtoTask.getIdProject() == -1) {
+					Optional<EUser> oEUser = userRepository.findById(idUser);
+					if (oEUser.isPresent()) {
+						dtoTask.setIdProject(oEUser.get().getIdDefautProject());
+					} else {
+						throw new NotFoundException("Id Utilisateur inexistant");
+					}
+					
+				} else {
+					// Nothing to do
 				}
 				
-				if (dtoTask.geteProject() == null) {
-					List<EProject> list = projectRepository.findAll();
-					EProject eProject = list.get(0);
-					eTask.seteProject(eProject);
-					dtoTask.seteProject(eTask.geteProject());
-				} 
-					
+				Optional<EProject> oeProject = projectRepository.findById(dtoTask.getIdProject());
 			
-				taskRepository.save(eTask);
-			
+				if (oeProject.isPresent()) {
+					eTask.seteProject(oeProject.get());
+					taskRepository.save(eTask);
+				} else {
+					throw new NotFoundException("Ce projet est inexistant");
+				}
 			}
 			
 			else {
-				
 					throw new BeforeNowException("Désolé la date limite doit être supérieure à la date du jour");
-				
 			}
 			
 			return dtoTask;			
