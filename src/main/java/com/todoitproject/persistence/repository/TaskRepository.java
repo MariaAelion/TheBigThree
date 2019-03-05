@@ -14,7 +14,7 @@ import com.todoitproject.persistence.entity.ETask;
 * @version 1.0.0
 *
 */
-public interface TaskRepository extends JpaRepository <ETask, Long>{
+public interface TaskRepository extends JpaRepository <ETask, Long> {
 	
 
 	@Query(value= "SELECT * FROM t_tache WHERE id_projet = ?1", nativeQuery = true)
@@ -23,7 +23,7 @@ public interface TaskRepository extends JpaRepository <ETask, Long>{
 	@Query(value= "SELECT * FROM t_tache WHERE id_projet = ?1 AND dateLimite = ?2", nativeQuery = true)
 	Optional<ETask> findByIdAndDate(long id_projet, LocalDate dateLimite);
 	
-	@Query(value= "SELECT * FROM t_tache WHERE id_projet = ?1 AND dateLimite BETWEEN ?2 AND ?3")
+	@Query(value= "SELECT * FROM t_tache WHERE id_projet = ?1 AND dateLimite BETWEEN ?2 AND ?3", nativeQuery = true)
 	Optional<ETask> findByIdAndTwoDates(long id_projet, LocalDate dateLimite1, LocalDate dateLimite2);
 
 
