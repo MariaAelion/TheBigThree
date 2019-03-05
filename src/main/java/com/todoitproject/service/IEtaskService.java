@@ -33,6 +33,8 @@ public interface IEtaskService {
 	
 	List<DtoRTasks> getAllTasksForADay(List<DtoRProject> list, LocalDate localDate);
 	
+	List<DtoRTasks> getAllTasksForAWeek(List<DtoRProject> list);
+	
 	void deleteById(long id);
 
 }

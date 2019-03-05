@@ -251,4 +251,38 @@ public class EtaskService implements IEtaskService{
 			
 		}
 
+
+		@Override
+		public List<DtoRTasks> getAllTasksForAWeek(List<DtoRProject> list) {
+			
+			List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
+			
+			for (DtoRProject dtoRProject : list) {
+				Long idLong = dtoRProject.getId();
+				Optional<ETask> opt = taskRepository.findByIdAndTwoDates(idLong, LocalDate.now(), LocalDate.now().plusDays(7));
+				
+				if (opt.isPresent()) {
+						
+				ETask eTask = new ETask();
+				
+				eTask = opt.get();
+				
+				DtoRTasks dtoRTasks = new DtoRTasks();
+				
+				dtoRTasks.setDateCrea(eTask.getDateCrea());
+				dtoRTasks.setDateLimite(eTask.getDateLimite());
+				dtoRTasks.setEtat(eTask.isEtat());
+				dtoRTasks.setId_projet(eTask.geteProject().getId());
+				dtoRTasks.setLabel(eTask.getLabel());
+				dtoRTasks.setPriorite(eTask.getPriorite());
+				
+				tasks.add(dtoRTasks);
+					
+				}
+				
+			}
+			
+			return tasks;
+		}
+
 }
