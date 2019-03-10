@@ -11,9 +11,6 @@ public class DtoRProject {
 
 
 	private long id;
-
-
-
 	private String nom;
 	private String description;
 

@@ -183,7 +183,7 @@ public class EtaskService implements IEtaskService{
 			
 		}
 
-
+/*
 		@Override
 		public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
 			//Parcours de la liste DTOrProject pour trouver les id
@@ -215,7 +215,7 @@ public class EtaskService implements IEtaskService{
 			}
 			
 			return tasks;
-		}
+		}*/
 
 
 		@Override
@@ -233,7 +233,7 @@ public class EtaskService implements IEtaskService{
 				eTask = opt.get();
 				
 				DtoRTasks dtoRTasks = new DtoRTasks();
-				
+				dtoRTasks.setId(eTask.getId());
 				dtoRTasks.setDateCrea(eTask.getDateCrea());
 				dtoRTasks.setDateLimite(eTask.getDateLimite());
 				dtoRTasks.setEtat(eTask.isEtat());
@@ -268,7 +268,7 @@ public class EtaskService implements IEtaskService{
 				eTask = opt.get();
 				
 				DtoRTasks dtoRTasks = new DtoRTasks();
-				
+				dtoRTasks.setId(eTask.getId());	
 				dtoRTasks.setDateCrea(eTask.getDateCrea());
 				dtoRTasks.setDateLimite(eTask.getDateLimite());
 				dtoRTasks.setEtat(eTask.isEtat());
@@ -284,5 +284,41 @@ public class EtaskService implements IEtaskService{
 			
 			return tasks;
 		}
+		//Toutes les tâches d'un utilisateur
+        @Override
+        public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
+
+            List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
+
+            for (DtoRProject dtoRProject : list) {
+                Long idLong = dtoRProject.getId();
+                List<ETask> opt = new ArrayList<ETask>();
+                opt = taskRepository.findByIdProject(idLong);
+
+                for (ETask optional : opt) {
+
+
+
+
+                        DtoRTasks dtoRTasks = new DtoRTasks();
+dtoRTasks.setId(optional.getId());
+                        dtoRTasks.setDateCrea(optional.getDateCrea());
+                        dtoRTasks.setDateLimite(optional.getDateLimite());
+                        dtoRTasks.setEtat(optional.isEtat());
+                        dtoRTasks.setId_projet(optional.geteProject().getId());
+                        dtoRTasks.setLabel(optional.getLabel());
+                        dtoRTasks.setPriorite(optional.getPriorite());
+
+                        tasks.add(dtoRTasks);
+
+
+                }
+
+
+
+            }
+
+            return tasks;
+        }
 
 }

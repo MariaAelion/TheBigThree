@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class DtoRTasks {
 
+	private long  id;
 	private String label;
 	private LocalDate dateCrea;
 	private LocalDate dateLimite;
@@ -45,6 +46,12 @@ public class DtoRTasks {
 	}
 	public void setId_projet(long id_projet) {
 		this.id_projet = id_projet;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

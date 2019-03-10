@@ -236,6 +236,8 @@ public class PrivateController {
 			return iEtaskService.getAllTasks(list);
 		}
 		
+		
+		
 		@GetMapping(value="/getAllTasksForADay/{dateLimite}")
 		@ResponseBody
 		public List<DtoRTasks> getAllTasksForADay(@PathVariable LocalDate dateLimite) {

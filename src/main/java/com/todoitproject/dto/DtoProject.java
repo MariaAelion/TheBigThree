@@ -19,6 +19,7 @@ public class DtoProject {
 	
 	public DtoProject(EProject proj) {
 		super();
+		
 		this.setNom(proj.getNom());
 		this.setDescription(proj.getDescription());
 		// this.setId_user(getUserByLog);

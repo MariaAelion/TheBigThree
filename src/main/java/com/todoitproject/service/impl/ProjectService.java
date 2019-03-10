@@ -49,6 +49,7 @@ public class ProjectService implements IProjectService {
 	public DtoProject addProject(DtoProject dtoproject) {
 
 		EProject eProject = new EProject();
+		
 		eProject.setNom(dtoproject.getNom());
 		eProject.setDescription(dtoproject.getDescription());
 
