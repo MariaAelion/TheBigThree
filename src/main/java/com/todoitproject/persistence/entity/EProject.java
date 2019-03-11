@@ -42,7 +42,7 @@ public class EProject {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="id_user", nullable=false)
+	@JoinColumn(name="id_user", nullable=true)
 	private EUser eUser;
 	
 	@OneToMany(mappedBy="eProject", cascade = javax.persistence.CascadeType.ALL)

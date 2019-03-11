@@ -29,7 +29,7 @@ public class PublicController {
 	@PostMapping(value="/create")
 	@ResponseBody
 	@ResponseStatus(code=HttpStatus.CREATED)
-	public DtoRCreateUser  createUser(@RequestBody DtoCreateUser  dtoCreateUser) {
+	public DtoRCreateUser createUser(@RequestBody DtoCreateUser  dtoCreateUser) {
 		
 		return  iLogService.createUser(dtoCreateUser);
 	}

@@ -6,8 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 
@@ -29,7 +28,7 @@ import com.todoitproject.dto.DtoProjectDescription;
 import com.todoitproject.dto.DtoProjectName;
 import com.todoitproject.dto.DtoRProject;
 import com.todoitproject.dto.DtoTask;
-
+import com.todoitproject.dto.ETask.DtoRTasks;
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
@@ -46,6 +45,7 @@ import com.todoitproject.service.IProjectService;
  * @author TheBigThree
  *@version 1.0.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value="/api/test")
 public class PrivateControllerTest {
@@ -212,6 +212,13 @@ public class PrivateControllerTest {
 	public DtoBoolean deleteProject2(@PathVariable long id) {
 		 return iPService.deleteProject(id);
 		 
+	}
+	
+	@GetMapping(value="/getAllTasks")
+	@ResponseBody
+	public List<DtoRTasks> getAllTasks() {
+		List<DtoRProject> list = iPService.listProject(1);
+		return iEtaskService.getAllTasks(list);
 	}
 
 

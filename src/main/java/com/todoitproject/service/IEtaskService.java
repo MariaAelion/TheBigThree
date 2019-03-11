@@ -14,8 +14,7 @@ import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
 import com.todoitproject.dto.ETask.DtoUpdateProjet;
-import com.todoitproject.exception.BeforeNowException;
-import com.todoitproject.persistence.entity.ETask;
+
 
 public interface IEtaskService {
 	
