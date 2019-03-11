@@ -224,26 +224,24 @@ public class EtaskService implements IEtaskService{
 			
 			for (DtoRProject dtoRProject : list) {
 				Long idLong = dtoRProject.getId();
-				Optional<ETask> opt = taskRepository.findByIdAndDate(idLong, localDate);
+				List<ETask> etasks = taskRepository.findByIdAndDate(idLong, localDate);
 				
-				if (opt.isPresent()) {
-						
-				ETask eTask = new ETask();
-				
-				eTask = opt.get();
-				
-				DtoRTasks dtoRTasks = new DtoRTasks();
-				dtoRTasks.setId(eTask.getId());
-				dtoRTasks.setDateCrea(eTask.getDateCrea());
-				dtoRTasks.setDateLimite(eTask.getDateLimite());
-				dtoRTasks.setEtat(eTask.isEtat());
-				dtoRTasks.setId_projet(eTask.geteProject().getId());
-				dtoRTasks.setLabel(eTask.getLabel());
-				dtoRTasks.setPriorite(eTask.getPriorite());
-				
-				tasks.add(dtoRTasks);
+				for (ETask task : etasks) {
+					DtoRTasks dtoRTasks = new DtoRTasks();
+					dtoRTasks.setId(task.getId());
+					dtoRTasks.setDateCrea(task.getDateCrea());
+					dtoRTasks.setDateLimite(task.getDateLimite());
+					dtoRTasks.setEtat(task.isEtat());
+					dtoRTasks.setId_projet(task.geteProject().getId());
+					dtoRTasks.setLabel(task.getLabel());
+					dtoRTasks.setPriorite(task.getPriorite());
 					
+					tasks.add(dtoRTasks);
 				}
+				
+				
+					
+			
 				
 			}
 			
@@ -259,31 +257,30 @@ public class EtaskService implements IEtaskService{
 			
 			for (DtoRProject dtoRProject : list) {
 				Long idLong = dtoRProject.getId();
-				Optional<ETask> opt = taskRepository.findByIdAndTwoDates(idLong, LocalDate.now(), LocalDate.now().plusDays(7));
+				List<ETask> etasks = taskRepository.findByIdAndTwoDates(idLong, LocalDate.now(), LocalDate.now().plusDays(7));
 				
-				if (opt.isPresent()) {
-						
-				ETask eTask = new ETask();
-				
-				eTask = opt.get();
-				
-				DtoRTasks dtoRTasks = new DtoRTasks();
-				dtoRTasks.setId(eTask.getId());	
-				dtoRTasks.setDateCrea(eTask.getDateCrea());
-				dtoRTasks.setDateLimite(eTask.getDateLimite());
-				dtoRTasks.setEtat(eTask.isEtat());
-				dtoRTasks.setId_projet(eTask.geteProject().getId());
-				dtoRTasks.setLabel(eTask.getLabel());
-				dtoRTasks.setPriorite(eTask.getPriorite());
-				
-				tasks.add(dtoRTasks);
+				for (ETask task : etasks) {
+					
+					DtoRTasks dtoRTasks = new DtoRTasks();
+					dtoRTasks.setId(task.getId());	
+					dtoRTasks.setDateCrea(task.getDateCrea());
+					dtoRTasks.setDateLimite(task.getDateLimite());
+					dtoRTasks.setEtat(task.isEtat());
+					dtoRTasks.setId_projet(task.geteProject().getId());
+					dtoRTasks.setLabel(task.getLabel());
+					dtoRTasks.setPriorite(task.getPriorite());
+					
+					tasks.add(dtoRTasks);
 					
 				}
+				
 				
 			}
 			
 			return tasks;
 		}
+		
+		
 		//Toutes les tâches d'un utilisateur
         @Override
         public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
@@ -301,7 +298,7 @@ public class EtaskService implements IEtaskService{
 
 
                         DtoRTasks dtoRTasks = new DtoRTasks();
-dtoRTasks.setId(optional.getId());
+                        dtoRTasks.setId(optional.getId());
                         dtoRTasks.setDateCrea(optional.getDateCrea());
                         dtoRTasks.setDateLimite(optional.getDateLimite());
                         dtoRTasks.setEtat(optional.isEtat());
