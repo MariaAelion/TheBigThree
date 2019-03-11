@@ -108,9 +108,9 @@ public class PrivateController {
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
+	public boolean addProject(@RequestBody DtoProject dtoproject) {
 	
-		return iPService.addProject(dtoproject);
+		return iPService.addProject(authChecker.isUser().getId(),dtoproject);
 	}
 	
 	
@@ -123,12 +123,12 @@ public class PrivateController {
 		return iPService.listProject(authChecker.isUser().getId());
 	}
 
-		
+		/*
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
 		return iPService.oneProject(id);
-	}
+	}*/
 	
 	@PutMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody

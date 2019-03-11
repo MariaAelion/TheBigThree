@@ -46,17 +46,17 @@ public class ProjectService implements IProjectService {
 	 * @return dtoproject
 	 */
 	@Override
-	public DtoProject addProject(DtoProject dtoproject) {
+	public boolean addProject(long id_user, DtoProject dtoproject) {
 
 		EProject eProject = new EProject();
 		
 		eProject.setNom(dtoproject.getNom());
 		eProject.setDescription(dtoproject.getDescription());
 
-		if (this.checkUserByLog(dtoproject.getId_user())) {
-			eProject.seteUser(this.getUserByLog(dtoproject.getId_user()));
+		if (this.checkUserByLog(id_user)) {
+			eProject.seteUser(this.getUserByLog(id_user));
 			projectRepository.save(eProject);
-			return dtoproject;
+			return true;
 		} else {
 			throw new NotFoundException("Cet utilisateur n'existe pas");
 		}
@@ -100,6 +100,7 @@ public class ProjectService implements IProjectService {
 	 * @param l'id de l'utilisateur
 	 * @return un projet avec DtoRProject avec son nom et sa description
 	 */
+	/*
 	@Override
 	public DtoProject oneProject(long id) {
 		DtoProject proj = new DtoProject();
@@ -114,7 +115,7 @@ public class ProjectService implements IProjectService {
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
-	}
+	}*/
 
 	/**
 	 * Supprimer un projet

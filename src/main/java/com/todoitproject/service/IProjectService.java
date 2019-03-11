@@ -15,11 +15,11 @@ import com.todoitproject.dto.DtoRProject;
 */
 public interface IProjectService {
 
-	DtoProject addProject(DtoProject dtoproject);
+    boolean addProject(long id_user, DtoProject dtoproject);
 
 	List<DtoRProject> listProject(long id);
 
-	DtoProject oneProject(long id);
+	//DtoProject oneProject(long id);
 
 	DtoBoolean deleteProject(long id);
 
