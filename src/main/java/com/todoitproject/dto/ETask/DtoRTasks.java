@@ -11,6 +11,27 @@ public class DtoRTasks {
 	private int priorite;
 	private boolean etat;
 	private long id_projet;
+	
+	
+	
+	
+	
+	
+	public DtoRTasks() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public DtoRTasks(long id, String label, LocalDate dateCrea, LocalDate dateLimite, int priorite, boolean etat,
+			long id_projet) {
+		super();
+		this.id = id;
+		this.label = label;
+		this.dateCrea = dateCrea;
+		this.dateLimite = dateLimite;
+		this.priorite = priorite;
+		this.etat = etat;
+		this.id_projet = id_projet;
+	}
 	public String getLabel() {
 		return label;
 	}

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -47,7 +48,7 @@ public class EtaskService implements IEtaskService{
 			ETask eTask = new ETask();
 			
 			
-			if (dtoTask.getDateLimite().isAfter(LocalDate.now())) {
+			if (dtoTask.getDateLimite().isAfter(LocalDate.now().minusDays(1))) {
 				
 				eTask.setDateLimite(dtoTask.getDateLimite());
 				eTask.setDateCrea(LocalDate.now());
@@ -245,7 +246,24 @@ public class EtaskService implements IEtaskService{
 				
 			}
 			
-			return tasks;
+			
+			return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
+				
+			
+			//return tasks;
+			
+			/*
+			 * 
+			 * projets.stream().map(a -> new DtoRProject(a))
+				.sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
+				.collect(Collectors.toList());
+			 * 
+			 * */
+			
 			
 		}
 
@@ -277,7 +295,11 @@ public class EtaskService implements IEtaskService{
 				
 			}
 			
-			return tasks;
+            return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
 		}
 		
 		
@@ -315,7 +337,11 @@ public class EtaskService implements IEtaskService{
 
             }
 
-            return tasks;
+            return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
         }
 
 }
