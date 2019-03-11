@@ -236,7 +236,7 @@ public class PrivateController {
 			return iEtaskService.getAllTasks(list);
 		}
 		
-		
+		// test
 		
 		@GetMapping(value="/getAllTasksForADay/{dateLimite}")
 		@ResponseBody
@@ -248,7 +248,7 @@ public class PrivateController {
 		}
 		
 		/**
-		 * 
+		 * @param
 		 * @param id
 		 */
 		@DeleteMapping(value = "deleteTask/{id}")
