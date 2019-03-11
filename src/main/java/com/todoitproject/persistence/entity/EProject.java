@@ -38,9 +38,6 @@ public class EProject {
 	@Column (name="nom", length = 250, nullable=false)
 	private String nom;
 	
-	@Column (name="description", length = 250, nullable=false)
-	private String description;
-	
 	@ManyToOne
 	@JoinColumn(name="id_user", nullable=false)
 	private EUser eUser;
@@ -64,13 +61,7 @@ public class EProject {
 		this.nom = nom;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 
 	public EUser geteUser() {
 		return eUser;

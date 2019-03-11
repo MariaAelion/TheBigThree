@@ -57,7 +57,6 @@ public class LogService implements ILogService{
 					eUser = this.getUserByLog(dtoCreateUser.getLogin());
 					EProject eProject = new EProject();
 					eProject.setNom("defaut");
-					eProject.setDescription("Hello");
 					eProject.seteUser(eUser);
 					projectRepository.save(eProject);
 					

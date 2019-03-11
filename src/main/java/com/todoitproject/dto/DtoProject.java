@@ -12,6 +12,24 @@ public class DtoProject {
 	private String nom;
 	private String description;
 	
+
+	
+	public DtoProject() {
+		super();}
+	
+	public DtoProject(EProject proj) {
+		super();
+		
+		this.setNom(proj.getNom());
+		
+		// this.setId_user(getUserByLog);
+	}
+		
+	/**
+	 * @return the nom
+	 */
+
+
 	public String getNom() {
 		return nom;
 	}
