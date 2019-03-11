@@ -23,7 +23,7 @@ public class DtoRProject {
 		super();
 		this.setId(proj.getId());
 		this.setNom(proj.getNom());
-		this.setDescription(proj.getDescription());
+		
 
 	}
 

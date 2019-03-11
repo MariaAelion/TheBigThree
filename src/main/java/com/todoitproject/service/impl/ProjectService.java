@@ -51,7 +51,7 @@ public class ProjectService implements IProjectService {
 		EProject eProject = new EProject();
 		
 		eProject.setNom(dtoproject.getNom());
-		eProject.setDescription(dtoproject.getDescription());
+		
 
 		if (this.checkUserByLog(dtoproject.getId_user())) {
 			eProject.seteUser(this.getUserByLog(dtoproject.getId_user()));
@@ -108,7 +108,6 @@ public class ProjectService implements IProjectService {
 		if (optProject.isPresent()) {
 
 			proj.setNom(optProject.get().getNom());
-			proj.setDescription(optProject.get().getDescription());
 			proj.setId_user(optProject.get().getId());
 			return proj;
 		} else {
@@ -195,7 +194,6 @@ public class ProjectService implements IProjectService {
 
 			eProj = optProject.get();
 
-			eProj.setDescription(dtoProjectdescription.getDescription());
 			projectRepository.save(eProj);
 			return true;
 

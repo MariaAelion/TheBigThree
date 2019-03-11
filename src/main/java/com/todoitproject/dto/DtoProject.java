@@ -21,7 +21,7 @@ public class DtoProject {
 		super();
 		
 		this.setNom(proj.getNom());
-		this.setDescription(proj.getDescription());
+		
 		// this.setId_user(getUserByLog);
 	}
 		
