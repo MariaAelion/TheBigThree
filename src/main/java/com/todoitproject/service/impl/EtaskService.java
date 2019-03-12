@@ -17,6 +17,7 @@ import com.todoitproject.dto.ETask.DtoRTasks;
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
+import com.todoitproject.dto.ETask.DtoUpdatePriorite;
 import com.todoitproject.dto.ETask.DtoUpdateProjet;
 import com.todoitproject.exception.BeforeNowException;
 import com.todoitproject.exception.NotFoundException;
@@ -109,6 +110,23 @@ public class EtaskService implements IEtaskService{
 			}
 			
 			
+		}
+		
+		@Override
+		public boolean updatePriorite(long id, DtoUpdatePriorite dtoUpdatePriorite) {
+			Optional<ETask> opt = taskRepository.findById(id);
+			
+			if (opt.isPresent()) {
+				ETask eTask = opt.get();
+				eTask.setPriorite(dtoUpdatePriorite.getNewPriorite());
+				taskRepository.save(eTask);
+				
+				return true;
+			}
+			
+			else {
+				throw new NotFoundException("Désolé id inexistant");
+			}
 		}
 
 
@@ -242,16 +260,17 @@ public class EtaskService implements IEtaskService{
 				
 				
 					
-			
+				
 				
 			}
-			
 			
 			return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
 					a.getId_projet()))
 					
 				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
 				.collect(Collectors.toList());
+			
+			
 				
 			
 			//return tasks;
@@ -343,5 +362,8 @@ public class EtaskService implements IEtaskService{
 				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
 				.collect(Collectors.toList());
         }
+
+
+		
 
 }

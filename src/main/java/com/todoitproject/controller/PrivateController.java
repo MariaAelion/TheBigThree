@@ -36,6 +36,7 @@ import com.todoitproject.dto.ETask.DtoRTasks;
 import com.todoitproject.dto.ETask.DtoUpdateDate;
 import com.todoitproject.dto.ETask.DtoUpdateEtat;
 import com.todoitproject.dto.ETask.DtoUpdateLabel;
+import com.todoitproject.dto.ETask.DtoUpdatePriorite;
 import com.todoitproject.dto.ETask.DtoUpdateProjet;
 
 import com.todoitproject.service.IEtaskService;
@@ -190,6 +191,12 @@ public class PrivateController {
 		@ResponseBody
 		public boolean updateDate(@PathVariable long id, @RequestBody DtoUpdateDate dtoUpdateDate) {
 			return iEtaskService.updateDate(id, dtoUpdateDate);
+		}
+		
+		@PutMapping(value="/updatePrioriteTask/{id}")
+		@ResponseBody
+		public boolean updatePriorite(@PathVariable long id, @RequestBody DtoUpdatePriorite dtoUpdatePriorite) {
+			return iEtaskService.updatePriorite(id, dtoUpdatePriorite);
 		}
 		
 		/**
