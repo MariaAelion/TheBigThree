@@ -66,6 +66,7 @@ public class PrivateControllerTest {
 	public DtoTask save(@RequestBody DtoTask dtoTask) {
 		return iEtaskService.save(1,dtoTask);
 	}
+	
 
 	/**
 	 * 
@@ -132,13 +133,14 @@ public class PrivateControllerTest {
 	 * @param dtoproject
 	 * @return
 	 */
+	/*
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
 	
 		return iPService.addProject(dtoproject);
-	}
+	}*/
 	
 	/**
 	 * 
@@ -156,12 +158,13 @@ public class PrivateControllerTest {
 	 * @param id
 	 * @return
 	 */
+	/*
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
 		return iPService.oneProject(id);
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param id

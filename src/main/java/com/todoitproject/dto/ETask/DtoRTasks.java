@@ -4,12 +4,34 @@ import java.time.LocalDate;
 
 public class DtoRTasks {
 
+	private long  id;
 	private String label;
 	private LocalDate dateCrea;
 	private LocalDate dateLimite;
 	private int priorite;
 	private boolean etat;
 	private long id_projet;
+	
+	
+	
+	
+	
+	
+	public DtoRTasks() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public DtoRTasks(long id, String label, LocalDate dateCrea, LocalDate dateLimite, int priorite, boolean etat,
+			long id_projet) {
+		super();
+		this.id = id;
+		this.label = label;
+		this.dateCrea = dateCrea;
+		this.dateLimite = dateLimite;
+		this.priorite = priorite;
+		this.etat = etat;
+		this.id_projet = id_projet;
+	}
 	public String getLabel() {
 		return label;
 	}
@@ -45,6 +67,12 @@ public class DtoRTasks {
 	}
 	public void setId_projet(long id_projet) {
 		this.id_projet = id_projet;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	

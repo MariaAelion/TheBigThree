@@ -11,6 +11,19 @@ import java.time.LocalDate;
 
 public class DtoTask {
 	
+	private long id;
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 	private String label;
 	private LocalDate dateCrea;
 	private LocalDate dateLimite;

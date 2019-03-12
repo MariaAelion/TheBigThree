@@ -11,9 +11,6 @@ public class DtoRProject {
 
 
 	private long id;
-
-
-
 	private String nom;
 	private String description;
 
@@ -26,7 +23,7 @@ public class DtoRProject {
 		super();
 		this.setId(proj.getId());
 		this.setNom(proj.getNom());
-		this.setDescription(proj.getDescription());
+		
 
 	}
 

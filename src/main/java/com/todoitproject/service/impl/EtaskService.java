@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -47,7 +48,7 @@ public class EtaskService implements IEtaskService{
 			ETask eTask = new ETask();
 			
 			
-			if (dtoTask.getDateLimite().isAfter(LocalDate.now())) {
+			if (dtoTask.getDateLimite().isAfter(LocalDate.now().minusDays(1))) {
 				
 				eTask.setDateLimite(dtoTask.getDateLimite());
 				eTask.setDateCrea(LocalDate.now());
@@ -183,7 +184,11 @@ public class EtaskService implements IEtaskService{
 			
 		}
 
+
 		//Toutes les tâches d'un utilisateur
+
+/*
+>>>>>>> refs/heads/master
 		@Override
 		public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
 			
@@ -218,7 +223,7 @@ public class EtaskService implements IEtaskService{
 			}
 			
 			return tasks;
-		}
+		}*/
 
 
 		//Toutes les tâches d'un jour donné
@@ -228,30 +233,53 @@ public class EtaskService implements IEtaskService{
 			
 			for (DtoRProject dtoRProject : list) {
 				Long idLong = dtoRProject.getId();
+
 				List<ETask> eTasks = taskRepository.findByIdAndDate(idLong, localDate);
+
+
 				
+
 				for (ETask task : eTasks) {
-					
-					
 					DtoRTasks dtoRTasks = new DtoRTasks();
-					
+					dtoRTasks.setId(task.getId());
 					dtoRTasks.setDateCrea(task.getDateCrea());
 					dtoRTasks.setDateLimite(task.getDateLimite());
 					dtoRTasks.setEtat(task.isEtat());
 					dtoRTasks.setId_projet(task.geteProject().getId());
 					dtoRTasks.setLabel(task.getLabel());
 					dtoRTasks.setPriorite(task.getPriorite());
+
 					
 					tasks.add(dtoRTasks);
-						
-					}
-					
 				}
 				
-				return tasks;
+
 				
 			}
 			
+			return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
+
+				
+			}
+
+			
+			
+			
+			//return tasks;
+			
+			/*
+			 * 
+			 * projets.stream().map(a -> new DtoRProject(a))
+				.sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
+				.collect(Collectors.toList());
+			 * 
+			 * */
+			
+
 			
 			
 		
@@ -264,13 +292,17 @@ public class EtaskService implements IEtaskService{
 			List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
 			
 			for (DtoRProject dtoRProject : list) {
+
 				long idLong = dtoRProject.getId();
 				List<ETask> eTasks = taskRepository.findByIdAndTwoDates(idLong, LocalDate.now(), LocalDate.now().plusDays(7));
+
 				
+
 				for (ETask task : eTasks) {
+
 					
 					DtoRTasks dtoRTasks = new DtoRTasks();
-					
+					dtoRTasks.setId(task.getId());	
 					dtoRTasks.setDateCrea(task.getDateCrea());
 					dtoRTasks.setDateLimite(task.getDateLimite());
 					dtoRTasks.setEtat(task.isEtat());
@@ -279,15 +311,63 @@ public class EtaskService implements IEtaskService{
 					dtoRTasks.setPriorite(task.getPriorite());
 					
 					tasks.add(dtoRTasks);
+
+					
 				}
 				
 				
-					
+
 			}
 				
 			
 			
-			return tasks;
+            return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
 		}
+		
+		
+		//Toutes les tâches d'un utilisateur
+        @Override
+        public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
+
+            List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
+
+            for (DtoRProject dtoRProject : list) {
+                Long idLong = dtoRProject.getId();
+                List<ETask> opt = new ArrayList<ETask>();
+                opt = taskRepository.findByIdProject(idLong);
+
+                for (ETask optional : opt) {
+
+
+
+
+                        DtoRTasks dtoRTasks = new DtoRTasks();
+                        dtoRTasks.setId(optional.getId());
+                        dtoRTasks.setDateCrea(optional.getDateCrea());
+                        dtoRTasks.setDateLimite(optional.getDateLimite());
+                        dtoRTasks.setEtat(optional.isEtat());
+                        dtoRTasks.setId_projet(optional.geteProject().getId());
+                        dtoRTasks.setLabel(optional.getLabel());
+                        dtoRTasks.setPriorite(optional.getPriorite());
+
+                        tasks.add(dtoRTasks);
+
+
+                }
+
+
+
+            }
+
+            return tasks.stream().map(a -> new DtoRTasks(a.getId(), a.getLabel(), a.getDateCrea(), a.getDateLimite(), a.getPriorite(), a.isEtat(),
+					a.getId_projet()))
+					
+				.sorted((b1, b2) -> b1.getDateLimite().compareTo(b2.getDateLimite()))
+				.collect(Collectors.toList());
+        }
 
 }

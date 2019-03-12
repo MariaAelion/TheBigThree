@@ -108,9 +108,9 @@ public class PrivateController {
 	@PostMapping(value = "/addProject")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public DtoProject addProject(@RequestBody DtoProject dtoproject) {
+	public boolean addProject(@RequestBody DtoProject dtoproject) {
 	
-		return iPService.addProject(dtoproject);
+		return iPService.addProject(authChecker.isUser().getId(),dtoproject);
 	}
 	
 	
@@ -123,12 +123,12 @@ public class PrivateController {
 		return iPService.listProject(authChecker.isUser().getId());
 	}
 
-		
+		/*
 	@GetMapping(value="/OneProject/{id}")
 	@ResponseBody
 	public DtoProject oneProject(@PathVariable long id) {
 		return iPService.oneProject(id);
-	}
+	}*/
 	
 	@PutMapping(value = "/modifProjectNom/{id}")
 	@ResponseBody
@@ -236,6 +236,8 @@ public class PrivateController {
 			return iEtaskService.getAllTasks(list);
 		}
 		
+		// test
+		
 		@GetMapping(value="/getAllTasksForADay/{dateLimite}")
 		@ResponseBody
 		public List<DtoRTasks> getAllTasksForADay(@PathVariable LocalDate dateLimite) {
@@ -246,7 +248,7 @@ public class PrivateController {
 		}
 		
 		/**
-		 * 
+		 * @param
 		 * @param id
 		 */
 		@DeleteMapping(value = "deleteTask/{id}")

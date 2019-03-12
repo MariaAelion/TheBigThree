@@ -1,11 +1,14 @@
 package com.todoitproject.calcul;  
-import java.util.List;  
-import com.todoitproject.persistence.entity.ETask;  
+import java.util.List;
+
+import com.todoitproject.dto.ETask.DtoRTasks;
 public class CalculPerformance {              
 	public double indicePerfo ; // taux de performance
 	public double taskFinished;         
-	public double taskTotal;                  
-	public double calculPerfoIndice(List<ETask> eTasks ) {             
+	public double taskTotal;     
+	
+	
+	public double calculPerfoIndice(List<DtoRTasks> eTasks ) {             
 		// recup methode thomas pour lister taches                       
 		this.indicePerfo=0;              
 		this.taskFinished=0;              
