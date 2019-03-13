@@ -118,7 +118,7 @@ public class EtaskService implements IEtaskService{
 			
 			if (opt.isPresent()) {
 				ETask eTask = opt.get();
-				eTask.setPriorite(dtoUpdatePriorite.getNewPriorite());
+				eTask.setPriorite(dtoUpdatePriorite.getPriorite());
 				taskRepository.save(eTask);
 				
 				return true;

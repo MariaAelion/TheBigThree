@@ -2,14 +2,14 @@ package com.todoitproject.dto.ETask;
 
 public class DtoUpdatePriorite {
 	
-	private int newPriorite;
+	private int priorite;
 
-	public int getNewPriorite() {
-		return newPriorite;
+	public int getPriorite() {
+		return priorite;
 	}
 
-	public void setNewPriorite(int newPriorite) {
-		this.newPriorite = newPriorite;
+	public void setPriorite(int priorite) {
+		this.priorite = priorite;
 	}
 
 	
