@@ -21,12 +21,13 @@ import com.todoitproject.persistence.repository.ProjectRepository;
 import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IGlobalService;
 import com.todoitproject.service.IProjectService;
+
 /**
  * @name : pojectService
-*  @author TheBigThree
-* @version 1.0.0
-*
-*/
+ * @author TheBigThree
+ * @version 1.0.0
+ *
+ */
 @Service
 @Transactional
 
@@ -40,7 +41,7 @@ public class ProjectService implements IProjectService {
 	IGlobalService iGlobalService;
 
 	/**
-	 * Création d'un nouveau projet
+	 * @description Création d'un nouveau projet
 	 * 
 	 * @param DtoProject
 	 * @return dtoproject
@@ -49,9 +50,8 @@ public class ProjectService implements IProjectService {
 	public boolean addProject(long id_user, DtoProject dtoproject) {
 
 		EProject eProject = new EProject();
-		
+
 		eProject.setNom(dtoproject.getNom());
-		
 
 		if (this.checkUserByLog(id_user)) {
 			eProject.seteUser(this.getUserByLog(id_user));
@@ -73,26 +73,10 @@ public class ProjectService implements IProjectService {
 	public List<DtoRProject> listProject(long id) {
 		List<EProject> projets = projectRepository.findByUser(id);
 
-		return projets.stream().map(a -> new DtoRProject(a))
-				.sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
+		return projets.stream().map(a -> new DtoRProject(a)).sorted((b1, b2) -> b1.getNom().compareTo(b2.getNom()))
 				.collect(Collectors.toList());
 
 	}
-
-	/*
-	 * choisir la bonne methode A NE PAS UTILISER
-	 * 
-	 * @Override public List<DtoProject> listProjectAll(long id) { List<EProject>
-	 * projets = projectRepository.findAll(); Optional<EProject> optProject =
-	 * projectRepository.findById(id);
-	 * 
-	 * return projets.stream().map(a -> new DtoProject(a))
-	 * //.filter(b->b.getId_user() == (this.getUserByLog(id))) // probleme pas meme
-	 * type .filter(b->b.setId_user(().getUserByLog(id)this.getUserByLog().get))
-	 * .collect(Collectors.toList());
-	 * 
-	 * }
-	 */
 
 	/**
 	 * Trouver un projet
@@ -101,23 +85,18 @@ public class ProjectService implements IProjectService {
 	 * @return un projet avec DtoRProject avec son nom et sa description
 	 */
 	/*
-	@Override
-	public DtoProject oneProject(long id) {
-		DtoProject proj = new DtoProject();
-		Optional<EProject> optProject = projectRepository.findById(id);
-
-		if (optProject.isPresent()) {
-
-			proj.setNom(optProject.get().getNom());
-			proj.setId_user(optProject.get().getId());
-			return proj;
-		} else {
-			throw new NotFoundException("Ce projet n'existe pas");
-		}
-	}*/
+	 * @Override public DtoProject oneProject(long id) { DtoProject proj = new
+	 * DtoProject(); Optional<EProject> optProject = projectRepository.findById(id);
+	 * 
+	 * if (optProject.isPresent()) {
+	 * 
+	 * proj.setNom(optProject.get().getNom());
+	 * proj.setId_user(optProject.get().getId()); return proj; } else { throw new
+	 * NotFoundException("Ce projet n'existe pas"); } }
+	 */
 
 	/**
-	 * Supprimer un projet
+	 * @description Supprimer un projet
 	 * 
 	 * @param l'id du projet
 	 * @return true pour confirmer la suppression du projet
@@ -150,9 +129,10 @@ public class ProjectService implements IProjectService {
 	}
 
 	/**
-	 * Modifier le nom d'un projet
+	 * @description Modifier le nom d'un projet
 	 * 
-	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans  entité
+	 * @param l'id du projet et le DtoProjectName pour remplacer le champ nom dans
+	 *        entité
 	 * @return true si bien modifié
 	 */
 	@Override
@@ -173,15 +153,15 @@ public class ProjectService implements IProjectService {
 		} else {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
-		
+
 	}
 
 	/**
-	 * Modifier la description d'un projet
+	 * @description Modifier la description d'un projet
 	 * 
 	 * @param l'id du projet et le DtoProjectDescription pour remplacer le champ
 	 *        description dans l'entité
-	 * @return true
+	 * @return boolean true=ok
 	 */
 
 	@Override
@@ -202,14 +182,13 @@ public class ProjectService implements IProjectService {
 			throw new NotFoundException("Ce projet n'existe pas");
 		}
 
-	
 	}
 
 	/**
-	 * Vérifie qu'un utilisateur est bien connecté
+	 * @description Vérifie qu'un utilisateur est bien connecté
 	 * 
 	 * @param id
-	 * @return
+	 * @return boolean true=ok
 	 */
 
 	private boolean checkUserByLog(long id) {
@@ -225,9 +204,9 @@ public class ProjectService implements IProjectService {
 	}
 
 	/**
-	 * Récupère l'id de l'utilisateur connecté
-	 * 
+	 * @description Récupère l'id de l'utilisateur connecté
 	 * @param id
+	 * @return user
 	 * 
 	 */
 	private EUser getUserByLog(long id) {

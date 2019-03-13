@@ -1,7 +1,7 @@
 package com.todoitproject.dto.ETask;
 /**
 *  @author TheBigThree
-* @version 1.0.0
+* @version 1.0.1
 *
 */
 import java.time.LocalDate;

@@ -1,3 +1,9 @@
+/**
+*  @author TheBigThree
+* @version 1.0.1
+*
+*/
+
 package com.todoitproject.dto.ETask;
 
 public class DtoUpdatePriorite {

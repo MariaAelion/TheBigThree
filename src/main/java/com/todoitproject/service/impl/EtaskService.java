@@ -30,7 +30,7 @@ import com.todoitproject.persistence.repository.UserRepository;
 import com.todoitproject.service.IEtaskService;
 /**
 *  @author TheBigThree
-* @version 1.0.0
+* @version 1.0.1
 *
 */
 @Service
@@ -42,7 +42,11 @@ public class EtaskService implements IEtaskService{
 	@Autowired ProjectRepository projectRepository;
 	@Autowired UserRepository userRepository;
 	
-	
+	/**
+	 * @description creation d'une tache
+	 * @parma idUser, dtoTAsk
+	 * @return un dtoTask
+	 */
 		@Override
 		public DtoTask save(long idUser, DtoTask dtoTask) {
 			
@@ -89,7 +93,11 @@ public class EtaskService implements IEtaskService{
 		}
 		
 		
-		//Modif dateLimite d'une tâche
+		/**
+		 * @description modification de la date d'une tache
+		 * @param id, dtoUpdateDate
+		 * @return boolean true=ok
+		 */
 		@Override
 		public boolean updateDate(long id, DtoUpdateDate dtoUpdateDate) {
 			
@@ -112,6 +120,13 @@ public class EtaskService implements IEtaskService{
 			
 		}
 		
+		
+		/**
+		 * @description modification de la priorite d'une tache
+		 * @param id, dtoUpdatePriorite
+		 * @return boolean true=ok
+		 */
+		
 		@Override
 		public boolean updatePriorite(long id, DtoUpdatePriorite dtoUpdatePriorite) {
 			Optional<ETask> opt = taskRepository.findById(id);
@@ -129,8 +144,12 @@ public class EtaskService implements IEtaskService{
 			}
 		}
 
-
-		//Modif etat d'une tâche
+		
+		/**
+		 * @description modification d'etat d'une tache
+		 * @param id, dtoUpdateEtt
+		 * @return boolean true=ok
+		 */
 		@Override
 		public boolean updateEtat(long id, DtoUpdateEtat dtoUpdateEtat) {
 			
@@ -151,7 +170,12 @@ public class EtaskService implements IEtaskService{
 		}
 
 
-		//Modif label d'une tâche
+		
+		/**
+		 * @description modification du label d'une tache
+		 * @param id, dtoUpdateLabel
+		 * @return boolean true=ok
+		 */
 		@Override
 		public boolean updateLabel(long id, DtoUpdateLabel dtoUpdateLabel) {
 			
@@ -172,7 +196,12 @@ public class EtaskService implements IEtaskService{
 		}
 
 
-		//Modif projet d'une tâche
+		
+		/**
+		 * @description modification du projet d'une tache
+		 * @param id, dtoUpdateProjet
+		 * @return boolean true=ok
+		 */
 		@Override
 		public boolean updateProjet(long id, DtoUpdateProjet dtoUpdateProjet) {
 			
@@ -194,7 +223,11 @@ public class EtaskService implements IEtaskService{
 		}
 
 
-		//Supprimer une tâche
+		
+		/**
+		 * @description suppression d'une tache
+		 * @param id
+		 */
 		@Override
 		public void deleteById(long id) {
 			
@@ -236,7 +269,11 @@ public class EtaskService implements IEtaskService{
 			return tasks;
 		}*/
 
-
+	/**
+	 * @description lister toutes les taches du jour
+	 * @param date du jour , liste de dtoRproject
+	 * @return une liste de tache dtoRtasks
+	 */
 		@Override
 		public List<DtoRTasks> getAllTasksForADay(List<DtoRProject> list, LocalDate localDate) {
 			List<DtoRTasks> tasks = new ArrayList<DtoRTasks>();
@@ -286,7 +323,10 @@ public class EtaskService implements IEtaskService{
 			
 		}
 
-
+		/**
+		 * @description lister toutes les taches de la semaine
+		 * @return une liste de tache dtoRtasks
+		 */
 		@Override
 		public List<DtoRTasks> getAllTasksForAWeek(List<DtoRProject> list) {
 			
@@ -322,7 +362,10 @@ public class EtaskService implements IEtaskService{
 		}
 		
 		
-		//Toutes les tâches d'un utilisateur
+		/**
+		 * @description lister toutes les taches du jour
+		 * @return une liste de tache dtoRtasks
+		 */
         @Override
         public List<DtoRTasks> getAllTasks(List<DtoRProject> list) {
 

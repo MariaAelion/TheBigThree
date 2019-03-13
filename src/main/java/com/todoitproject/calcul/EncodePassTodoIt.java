@@ -2,7 +2,7 @@ package com.todoitproject.calcul;
 
 /**
 *  @author TheBigThree
-* @version 1.0.0
+* @version 1.0.1
 *
 */
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -10,7 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class EncodePassTodoIt {
 	
-	
+	/**
+	 * @description Crypter le mot de passe et vérifier qu'il correspond à celui dans le back 
+	 * 
+	 */
 	public static PasswordEncoder passwordEncoder(){
 		PasswordEncoder encoder = new PasswordEncoder() {
 			

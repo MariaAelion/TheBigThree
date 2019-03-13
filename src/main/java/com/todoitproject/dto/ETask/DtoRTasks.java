@@ -1,7 +1,11 @@
 package com.todoitproject.dto.ETask;
 
 import java.time.LocalDate;
-
+/**
+ * @author TheBigThree
+ * @version 1.0.1
+ *
+ */
 public class DtoRTasks {
 
 	private long  id;
@@ -11,10 +15,6 @@ public class DtoRTasks {
 	private int priorite;
 	private boolean etat;
 	private long id_projet;
-	
-	
-	
-	
 	
 	
 	public DtoRTasks() {

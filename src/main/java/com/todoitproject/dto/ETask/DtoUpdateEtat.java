@@ -1,9 +1,12 @@
-package com.todoitproject.dto.ETask;
 /**
 *  @author TheBigThree
-* @version 1.0.0
+* @version 1.0.1
 *
 */
+
+
+package com.todoitproject.dto.ETask;
+
 public class DtoUpdateEtat {
 
 	private boolean etat;

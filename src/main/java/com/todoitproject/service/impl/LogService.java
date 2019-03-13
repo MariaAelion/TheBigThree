@@ -40,6 +40,11 @@ public class LogService implements ILogService{
 	@Autowired IEmailService iEmailService;
 
 
+	/**
+	 * @description creer un utilisateur
+	 * @param dtocreateuser
+	 * @return  dtoRcreateuser
+	 */
 	@Override
 	public DtoRCreateUser createUser(DtoCreateUser dtoCreateUser) {
 		if(iEmailService.isValidEmailAddress(dtoCreateUser.getMail())) {
@@ -83,6 +88,11 @@ public class LogService implements ILogService{
 		}
 	}
 
+	/**
+	 * @description trouver un utilisateur par login et password
+	 * @param login, password
+	 * @return dtouserlog
+	 **/
 	@Override
 	public DtoUserLog findUserByLogPass(String login, String password) {
 		if(this.checkUserByLog(login)) {
@@ -100,6 +110,11 @@ public class LogService implements ILogService{
 		}
 	}
 
+	/**
+	 * @description trouver un utilisateur
+	 * @param id
+	 * @return dtouserlog
+	 */
 	@Override
 	public DtoUserLog findOne(long id) {
 		Optional<EUser> optEUser = userRepository.findById(id);
@@ -112,6 +127,12 @@ public class LogService implements ILogService{
 		}
 	}
 	
+
+	/**
+	 * @description supprimer un utilisateur
+	 * @param id
+	 * @return dtouserlog
+	 */
 	@Override
 	public DtoUserLog DeleteOne(long id) {
 		if(userRepository.findById(id).isPresent()) {
@@ -124,6 +145,11 @@ public class LogService implements ILogService{
 		return null;
 	}
 
+	/**
+	 * @description changer un mail pour un utilisateur
+	 * @param id, mail
+	 * @return boolean true=ok
+	 */
 	@Override
 	public boolean changeMail(long id, String mail) {
 		if(iEmailService.isValidEmailAddress(mail)) {
@@ -144,6 +170,12 @@ public class LogService implements ILogService{
 		}
 	}
 
+
+	/**
+	 * @description  changer un password pour un utilisateur
+	 * @param id, password
+	 * @return boolean true=ok
+	 */
 	@Override
 	public boolean changePassword(long id, String password) {
 		Optional<EUser> oEUser= userRepository.findById(id);

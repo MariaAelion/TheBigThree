@@ -47,7 +47,7 @@ import com.todoitproject.service.IProjectService;
  */
 @CrossOrigin
 @RestController
-@RequestMapping(value="/api/test")
+@RequestMapping(value="/test") // url erronee pour ne pas utiliser ce controleur
 public class PrivateControllerTest {
 
 	

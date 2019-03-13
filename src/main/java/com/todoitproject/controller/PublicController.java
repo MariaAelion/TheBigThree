@@ -25,7 +25,11 @@ public class PublicController {
 	
 	@Autowired ILogService iLogService;
 	
-	
+	/**
+	 * 
+	 * @param dtoCreateUser
+	 * @return une nouvel utilisateur est créé avec un dtoRcreateUser
+	 */
 	@PostMapping(value="/create")
 	@ResponseBody
 	@ResponseStatus(code=HttpStatus.CREATED)

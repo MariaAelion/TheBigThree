@@ -1,13 +1,25 @@
+/**
+*  @author TheBigThree
+* @version 1.0.1
+*
+*/
 package com.todoitproject.calcul;  
 import java.util.List;
 
 import com.todoitproject.dto.ETask.DtoRTasks;
+
+
+
 public class CalculPerformance {              
 	public double indicePerfo ; // taux de performance
 	public double taskFinished;         
 	public double taskTotal;     
 	
-	
+	/**
+	 * 
+	 * @param eTasks
+	 * @return calcul d'un indice de performance selon les taches
+	 */
 	public double calculPerfoIndice(List<DtoRTasks> eTasks ) {             
 		// recup methode thomas pour lister taches                       
 		this.indicePerfo=0;              

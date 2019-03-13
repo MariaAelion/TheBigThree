@@ -22,7 +22,7 @@ import com.todoitproject.service.IGlobalService;
 /**
 * 
 * @author TheBigThree
-* @version 1.0.0
+* @version 1.0.1
 *
 */
 @Service
@@ -35,6 +35,11 @@ public class GlobalService implements IGlobalService {
 	@Autowired UserRepository userRepository;
 	
 
+	/**
+	 * @description controler un utilisateur lors de connexion
+	 * @param id
+	 * @return boolean true=ok
+	 */
 	public boolean checkUserByLog(long id) {
 
 		Optional<EUser> oeUser = userRepository.findUserById(id);
